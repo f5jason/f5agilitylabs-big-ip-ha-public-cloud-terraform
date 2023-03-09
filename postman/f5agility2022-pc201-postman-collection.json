@@ -1,0 +1,2166 @@
+{
+	"info": {
+		"_postman_id": "087ce645-7c74-4c55-be81-44032c628afa",
+		"name": "Agility 2022 PC201 Lab",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Lab3.1 - Install iLX Packages",
+			"item": [
+				{
+					"name": "Upload and Install to BIG-IP1",
+					"item": [
+						{
+							"name": "Step 1: REST API - Upload DO iLX Package",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "{{bigip_admin_password}}",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "admin",
+											"type": "string"
+										},
+										{
+											"key": "showPassword",
+											"value": false,
+											"type": "boolean"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"command\": \"run\", \"utilCmdArgs\": \"-c \\\"cd /var/config/rest/downloads/ && curl -sk -LJO {{do_url}}\\\"\"\n}"
+								},
+								"url": {
+									"raw": "https://{{bigip1_mgmt_ip}}/mgmt/tm/util/bash",
+									"protocol": "https",
+									"host": [
+										"{{bigip1_mgmt_ip}}"
+									],
+									"path": [
+										"mgmt",
+										"tm",
+										"util",
+										"bash"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Step 2: REST API - Install DO iLX Package",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "{{bigip_admin_password}}",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "admin",
+											"type": "string"
+										},
+										{
+											"key": "showPassword",
+											"value": false,
+											"type": "boolean"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"operation\":\"INSTALL\",\"packageFilePath\":\"/var/config/rest/downloads/{{do_file}}\"\n}"
+								},
+								"url": {
+									"raw": "https://{{bigip1_mgmt_ip}}/mgmt/shared/iapp/package-management-tasks",
+									"protocol": "https",
+									"host": [
+										"{{bigip1_mgmt_ip}}"
+									],
+									"path": [
+										"mgmt",
+										"shared",
+										"iapp",
+										"package-management-tasks"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Step 3: REST API - Upload AS3 iLX Package",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "{{bigip_admin_password}}",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "admin",
+											"type": "string"
+										},
+										{
+											"key": "showPassword",
+											"value": false,
+											"type": "boolean"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"command\": \"run\", \"utilCmdArgs\": \"-c \\\"cd /var/config/rest/downloads/ && curl -sk -LJO {{as3_url}}\\\"\"\n}"
+								},
+								"url": {
+									"raw": "https://{{bigip1_mgmt_ip}}/mgmt/tm/util/bash",
+									"protocol": "https",
+									"host": [
+										"{{bigip1_mgmt_ip}}"
+									],
+									"path": [
+										"mgmt",
+										"tm",
+										"util",
+										"bash"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Step 4: REST API - Install AS3 iLX Package",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "{{bigip_admin_password}}",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "admin",
+											"type": "string"
+										},
+										{
+											"key": "showPassword",
+											"value": false,
+											"type": "boolean"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"operation\":\"INSTALL\",\"packageFilePath\":\"/var/config/rest/downloads/{{as3_file}}\"\n}"
+								},
+								"url": {
+									"raw": "https://{{bigip1_mgmt_ip}}/mgmt/shared/iapp/package-management-tasks",
+									"protocol": "https",
+									"host": [
+										"{{bigip1_mgmt_ip}}"
+									],
+									"path": [
+										"mgmt",
+										"shared",
+										"iapp",
+										"package-management-tasks"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Step 5: REST API - Upload CFE iLX Package",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "{{bigip_admin_password}}",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "admin",
+											"type": "string"
+										},
+										{
+											"key": "showPassword",
+											"value": false,
+											"type": "boolean"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"command\": \"run\", \"utilCmdArgs\": \"-c \\\"cd /var/config/rest/downloads/ && curl -sk -LJO {{cfe_url}}\\\"\"\n}"
+								},
+								"url": {
+									"raw": "https://{{bigip1_mgmt_ip}}/mgmt/tm/util/bash",
+									"protocol": "https",
+									"host": [
+										"{{bigip1_mgmt_ip}}"
+									],
+									"path": [
+										"mgmt",
+										"tm",
+										"util",
+										"bash"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Step 6: REST API - Install CFE iLX Package",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "{{bigip_admin_password}}",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "admin",
+											"type": "string"
+										},
+										{
+											"key": "showPassword",
+											"value": false,
+											"type": "boolean"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"operation\":\"INSTALL\",\"packageFilePath\":\"/var/config/rest/downloads/{{cfe_file}}\"\n}"
+								},
+								"url": {
+									"raw": "https://{{bigip1_mgmt_ip}}/mgmt/shared/iapp/package-management-tasks",
+									"protocol": "https",
+									"host": [
+										"{{bigip1_mgmt_ip}}"
+									],
+									"path": [
+										"mgmt",
+										"shared",
+										"iapp",
+										"package-management-tasks"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Step 7: REST API - Upload TS iLX Package",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "{{bigip_admin_password}}",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "admin",
+											"type": "string"
+										},
+										{
+											"key": "showPassword",
+											"value": false,
+											"type": "boolean"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"command\": \"run\", \"utilCmdArgs\": \"-c \\\"cd /var/config/rest/downloads/ && curl -sk -LJO {{ts_url}}\\\"\"\n}"
+								},
+								"url": {
+									"raw": "https://{{bigip1_mgmt_ip}}/mgmt/tm/util/bash",
+									"protocol": "https",
+									"host": [
+										"{{bigip1_mgmt_ip}}"
+									],
+									"path": [
+										"mgmt",
+										"tm",
+										"util",
+										"bash"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Step 8: REST API - Install TS iLX Package",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "{{bigip_admin_password}}",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "admin",
+											"type": "string"
+										},
+										{
+											"key": "showPassword",
+											"value": false,
+											"type": "boolean"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"operation\":\"INSTALL\",\"packageFilePath\":\"/var/config/rest/downloads/{{ts_file}}\"\n}"
+								},
+								"url": {
+									"raw": "https://{{bigip1_mgmt_ip}}/mgmt/shared/iapp/package-management-tasks",
+									"protocol": "https",
+									"host": [
+										"{{bigip1_mgmt_ip}}"
+									],
+									"path": [
+										"mgmt",
+										"shared",
+										"iapp",
+										"package-management-tasks"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"",
+									"pm.collectionVariables.set(\"bigip1_mgmt_ip\", pm.environment.get(\"bigip1_mgmt_ip\"));"
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "Upload and Install to BIG-IP2",
+					"item": [
+						{
+							"name": "Step 1: REST API - Upload DO iLX Package",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "{{bigip_admin_password}}",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "admin",
+											"type": "string"
+										},
+										{
+											"key": "showPassword",
+											"value": false,
+											"type": "boolean"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"command\": \"run\", \"utilCmdArgs\": \"-c \\\"cd /var/config/rest/downloads/ && curl -sk -LJO {{do_url}}\\\"\"\n}"
+								},
+								"url": {
+									"raw": "https://{{bigip2_mgmt_ip}}/mgmt/tm/util/bash",
+									"protocol": "https",
+									"host": [
+										"{{bigip2_mgmt_ip}}"
+									],
+									"path": [
+										"mgmt",
+										"tm",
+										"util",
+										"bash"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Step 2: REST API - Install DO iLX Package",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "{{bigip_admin_password}}",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "admin",
+											"type": "string"
+										},
+										{
+											"key": "showPassword",
+											"value": false,
+											"type": "boolean"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"operation\":\"INSTALL\",\"packageFilePath\":\"/var/config/rest/downloads/{{do_file}}\"\n}"
+								},
+								"url": {
+									"raw": "https://{{bigip2_mgmt_ip}}/mgmt/shared/iapp/package-management-tasks",
+									"protocol": "https",
+									"host": [
+										"{{bigip2_mgmt_ip}}"
+									],
+									"path": [
+										"mgmt",
+										"shared",
+										"iapp",
+										"package-management-tasks"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Step 3: REST API - Upload AS3 iLX Package",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "{{bigip_admin_password}}",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "admin",
+											"type": "string"
+										},
+										{
+											"key": "showPassword",
+											"value": false,
+											"type": "boolean"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"command\": \"run\", \"utilCmdArgs\": \"-c \\\"cd /var/config/rest/downloads/ && curl -sk -LJO {{as3_url}}\\\"\"\n}"
+								},
+								"url": {
+									"raw": "https://{{bigip2_mgmt_ip}}/mgmt/tm/util/bash",
+									"protocol": "https",
+									"host": [
+										"{{bigip2_mgmt_ip}}"
+									],
+									"path": [
+										"mgmt",
+										"tm",
+										"util",
+										"bash"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Step 4: REST API - Install AS3 iLX Package",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "{{bigip_admin_password}}",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "admin",
+											"type": "string"
+										},
+										{
+											"key": "showPassword",
+											"value": false,
+											"type": "boolean"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"operation\":\"INSTALL\",\"packageFilePath\":\"/var/config/rest/downloads/{{as3_file}}\"\n}"
+								},
+								"url": {
+									"raw": "https://{{bigip2_mgmt_ip}}/mgmt/shared/iapp/package-management-tasks",
+									"protocol": "https",
+									"host": [
+										"{{bigip2_mgmt_ip}}"
+									],
+									"path": [
+										"mgmt",
+										"shared",
+										"iapp",
+										"package-management-tasks"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Step 5: REST API - Upload CFE iLX Package",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "{{bigip_admin_password}}",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "admin",
+											"type": "string"
+										},
+										{
+											"key": "showPassword",
+											"value": false,
+											"type": "boolean"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"command\": \"run\", \"utilCmdArgs\": \"-c \\\"cd /var/config/rest/downloads/ && curl -sk -LJO {{cfe_url}}\\\"\"\n}"
+								},
+								"url": {
+									"raw": "https://{{bigip2_mgmt_ip}}/mgmt/tm/util/bash",
+									"protocol": "https",
+									"host": [
+										"{{bigip2_mgmt_ip}}"
+									],
+									"path": [
+										"mgmt",
+										"tm",
+										"util",
+										"bash"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Step 6: REST API - Install CFE iLX Package",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "{{bigip_admin_password}}",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "admin",
+											"type": "string"
+										},
+										{
+											"key": "showPassword",
+											"value": false,
+											"type": "boolean"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"operation\":\"INSTALL\",\"packageFilePath\":\"/var/config/rest/downloads/{{cfe_file}}\"\n}"
+								},
+								"url": {
+									"raw": "https://{{bigip2_mgmt_ip}}/mgmt/shared/iapp/package-management-tasks",
+									"protocol": "https",
+									"host": [
+										"{{bigip2_mgmt_ip}}"
+									],
+									"path": [
+										"mgmt",
+										"shared",
+										"iapp",
+										"package-management-tasks"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Step 7: REST API - Upload TS iLX Package",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "{{bigip_admin_password}}",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "admin",
+											"type": "string"
+										},
+										{
+											"key": "showPassword",
+											"value": false,
+											"type": "boolean"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"command\": \"run\", \"utilCmdArgs\": \"-c \\\"cd /var/config/rest/downloads/ && curl -sk -LJO {{ts_url}}\\\"\"\n}"
+								},
+								"url": {
+									"raw": "https://{{bigip2_mgmt_ip}}/mgmt/tm/util/bash",
+									"protocol": "https",
+									"host": [
+										"{{bigip2_mgmt_ip}}"
+									],
+									"path": [
+										"mgmt",
+										"tm",
+										"util",
+										"bash"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Step 8: REST API - Install TS iLX Package",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "{{bigip_admin_password}}",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "admin",
+											"type": "string"
+										},
+										{
+											"key": "showPassword",
+											"value": false,
+											"type": "boolean"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"operation\":\"INSTALL\",\"packageFilePath\":\"/var/config/rest/downloads/{{ts_file}}\"\n}"
+								},
+								"url": {
+									"raw": "https://{{bigip2_mgmt_ip}}/mgmt/shared/iapp/package-management-tasks",
+									"protocol": "https",
+									"host": [
+										"{{bigip2_mgmt_ip}}"
+									],
+									"path": [
+										"mgmt",
+										"shared",
+										"iapp",
+										"package-management-tasks"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"",
+									"pm.collectionVariables.set(\"bigip2_mgmt_ip\", pm.environment.get(\"bigip2_mgmt_ip\"));"
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Lab 4.1 - Declarative Onboarding - Basic Plumbing",
+			"item": [
+				{
+					"name": "Step 1: Check DO - BIGIP1",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{bigip_admin_password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://{{bigip1_mgmt_ip}}/mgmt/shared/declarative-onboarding/info",
+							"protocol": "https",
+							"host": [
+								"{{bigip1_mgmt_ip}}"
+							],
+							"path": [
+								"mgmt",
+								"shared",
+								"declarative-onboarding",
+								"info"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Step 2: Check DO - BIGIP2",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{bigip_admin_password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://{{bigip2_mgmt_ip}}/mgmt/shared/declarative-onboarding/info",
+							"protocol": "https",
+							"host": [
+								"{{bigip2_mgmt_ip}}"
+							],
+							"path": [
+								"mgmt",
+								"shared",
+								"declarative-onboarding",
+								"info"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Step 3: DO - Network Plumbing and Module Provisioning - BIGIP1",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{bigip_admin_password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"schemaVersion\": \"1.0.0\",\n    \"class\": \"Device\",\n    \"async\": true,\n    \"label\": \"my BIG-IP declaration for declarative onboarding\",\n    \"Common\": {\n        \"class\": \"Tenant\",\n        \"hostname\": \"{{bigip1_hostname}}\",\n        \"myDns\": {\n            \"class\": \"DNS\",\n            \"nameServers\": [\n                \"{{dns_server}}\",\n                \"2001:4860:4860::8844\"\n            ],\n            \"search\": [\n                \"f5lab.dev\"\n            ]\n        },\n        \"myNtp\": {\n            \"class\": \"NTP\",\n            \"servers\": [\n                \"0.pool.ntp.org\",\n                \"1.pool.ntp.org\",\n                \"2.pool.ntp.org\"\n            ],\n            \"timezone\": \"UTC\"\n        },\n        \"myProvisioning\": {\n            \"class\": \"Provision\",\n            \"ltm\": \"nominal\",\n            \"avr\": \"nominal\"\n        },\n        \"traffic\": {\n            \"class\": \"VLAN\",\n            \"tag\": 4094,\n            \"mtu\": 1500,\n            \"interfaces\": [\n                {\n                    \"name\": \"1.1\",\n                    \"tagged\": false\n                }\n            ],\n            \"cmpHash\": \"src-ip\"\n        },\n        \"traffic-self\": {\n            \"class\": \"SelfIp\",\n            \"address\": \"{{bigip1_traffic_self_ip}}\",\n            \"vlan\": \"traffic\",\n            \"allowService\": \"all\",\n            \"trafficGroup\": \"traffic-group-local-only\"\n        },\n        \"Default\": {\n            \"class\": \"Route\",\n            \"gw\": \"{{bigip1_default_route}}\",\n            \"localOnly\": true,\n            \"network\": \"default\",\n            \"mtu\": 1500\n        },\n        \"configsync\": {\n            \"class\": \"ConfigSync\",\n            \"configsyncIp\": \"/Common/traffic-self/address\"\n        },\n        \"failoverAddress\": {\n            \"class\": \"FailoverUnicast\",\n            \"address\": \"/Common/traffic-self/address\"\n        },\n        \"dbvars\": {\n            \"class\": \"DbVariables\",\n            \"ui.advisory.enabled\": true,\n            \"ui.advisory.color\": \"green\",\n            \"ui.advisory.text\": \"/Common/hostname\"\n        }\n    }\n}"
+						},
+						"url": {
+							"raw": "https://{{bigip1_mgmt_ip}}/mgmt/shared/declarative-onboarding/",
+							"protocol": "https",
+							"host": [
+								"{{bigip1_mgmt_ip}}"
+							],
+							"path": [
+								"mgmt",
+								"shared",
+								"declarative-onboarding",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Step 4: DO - Network Plumbing and Module Provisioning - BIGIP2",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{bigip_admin_password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"schemaVersion\": \"1.0.0\",\n    \"class\": \"Device\",\n    \"async\": true,\n    \"label\": \"my BIG-IP declaration for declarative onboarding\",\n    \"Common\": {\n        \"class\": \"Tenant\",\n        \"hostname\": \"{{bigip2_hostname}}\",\n        \"myDns\": {\n            \"class\": \"DNS\",\n            \"nameServers\": [\n                \"{{dns_server}}\",\n                \"2001:4860:4860::8844\"\n            ],\n            \"search\": [\n                \"f5lab.dev\"\n            ]\n        },\n        \"myNtp\": {\n            \"class\": \"NTP\",\n            \"servers\": [\n                \"0.pool.ntp.org\",\n                \"1.pool.ntp.org\",\n                \"2.pool.ntp.org\"\n            ],\n            \"timezone\": \"UTC\"\n        },\n        \"myProvisioning\": {\n            \"class\": \"Provision\",\n            \"ltm\": \"nominal\",\n            \"avr\": \"nominal\"\n        },\n        \"traffic\": {\n            \"class\": \"VLAN\",\n            \"tag\": 4094,\n            \"mtu\": 1500,\n            \"interfaces\": [\n                {\n                    \"name\": \"1.1\",\n                    \"tagged\": false\n                }\n            ],\n            \"cmpHash\": \"src-ip\"\n        },\n        \"traffic-self\": {\n            \"class\": \"SelfIp\",\n            \"address\": \"{{bigip2_traffic_self_ip}}\",\n            \"vlan\": \"traffic\",\n            \"allowService\": \"all\",\n            \"trafficGroup\": \"traffic-group-local-only\"\n        },\n        \"Default\": {\n            \"class\": \"Route\",\n            \"gw\": \"{{bigip2_default_route}}\",\n            \"localOnly\": true,\n            \"network\": \"default\",\n            \"mtu\": 1500\n        },\n        \"configsync\": {\n            \"class\": \"ConfigSync\",\n            \"configsyncIp\": \"/Common/traffic-self/address\"\n        },\n        \"failoverAddress\": {\n            \"class\": \"FailoverUnicast\",\n            \"address\": \"/Common/traffic-self/address\"\n        },\n        \"dbvars\": {\n            \"class\": \"DbVariables\",\n            \"ui.advisory.enabled\": true,\n            \"ui.advisory.color\": \"green\",\n            \"ui.advisory.text\": \"/Common/hostname\"\n        }\n    }\n}"
+						},
+						"url": {
+							"raw": "https://{{bigip2_mgmt_ip}}/mgmt/shared/declarative-onboarding/",
+							"protocol": "https",
+							"host": [
+								"{{bigip2_mgmt_ip}}"
+							],
+							"path": [
+								"mgmt",
+								"shared",
+								"declarative-onboarding",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Lab 4.2 - Declarative Onboarding - Active / Standby HA Cluster",
+			"item": [
+				{
+					"name": "Step 1: REST API - System Resource Provisioning - BIGIP1 Device Trust",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{bigip_admin_password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"command\":\"run\",\n    \"name\":\"Root\",\n    \"caDevice\":true,\n    \"device\":\"{{bigip2_mgmt_ip}}\",\n    \"deviceName\":\"{{bigip2_hostname}}\",\n    \"username\":\"admin\",\n    \"password\":\"{{bigip_admin_password}}\"\n}"
+						},
+						"url": {
+							"raw": "https://{{bigip1_mgmt_ip}}/mgmt/tm/cm/add-to-trust",
+							"protocol": "https",
+							"host": [
+								"{{bigip1_mgmt_ip}}"
+							],
+							"path": [
+								"mgmt",
+								"tm",
+								"cm",
+								"add-to-trust"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Step 2: DO - System Resource Provisioning - BIGIP1 HA Cluster",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{bigip_admin_password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"schemaVersion\": \"1.18.0\",\n    \"class\": \"Device\",\n    \"async\": true,\n    \"label\": \"my BIG-IP declaration for declarative onboarding\",\n    \"Common\": {\n        \"class\": \"Tenant\",\n        \"hostname\": \"{{bigip1_hostname}}\",\n        \"myDns\": {\n            \"class\": \"DNS\",\n            \"nameServers\": [\n                \"{{dns_server}}\",\n                \"2001:4860:4860::8844\"\n            ],\n            \"search\": [\n                \"f5lab.dev\"\n            ]\n        },\n        \"myNtp\": {\n            \"class\": \"NTP\",\n            \"servers\": [\n                \"0.pool.ntp.org\",\n                \"1.pool.ntp.org\",\n                \"2.pool.ntp.org\"\n            ],\n            \"timezone\": \"UTC\"\n        },\n        \"myProvisioning\": {\n            \"class\": \"Provision\",\n            \"ltm\": \"nominal\",\n            \"avr\": \"nominal\"\n        },\n        \"traffic\": {\n            \"class\": \"VLAN\",\n            \"tag\": 4094,\n            \"mtu\": 1500,\n            \"interfaces\": [\n                {\n                    \"name\": \"1.1\",\n                    \"tagged\": false\n                }\n            ],\n            \"cmpHash\": \"src-ip\"\n        },\n        \"traffic-self\": {\n            \"class\": \"SelfIp\",\n            \"address\": \"{{bigip1_traffic_self_ip}}\",\n            \"vlan\": \"traffic\",\n            \"allowService\": \"all\",\n            \"trafficGroup\": \"traffic-group-local-only\"\n        },\n        \"Default\": {\n            \"class\": \"Route\",\n            \"gw\": \"{{bigip1_default_route}}\",\n            \"localOnly\": true,\n            \"network\": \"default\",\n            \"mtu\": 1500\n        },\n        \"configsync\": {\n            \"class\": \"ConfigSync\",\n            \"configsyncIp\": \"/Common/traffic-self/address\"\n        },\n        \"failoverAddress\": {\n            \"class\": \"FailoverUnicast\",\n            \"address\": \"/Common/traffic-self/address\"\n        },\n        \"failoverGroup\": {\n            \"class\": \"DeviceGroup\",\n            \"type\": \"sync-failover\",\n            \"members\": [\n                \"bigip1.f5lab.dev\",\n                \"bigip2.f5lab.dev\"\n            ],\n            \"owner\": \"/Common/failoverGroup/members/0\",\n            \"autoSync\": true,\n            \"saveOnAutoSync\": false,\n            \"networkFailover\": true,\n            \"fullLoadOnSync\": false,\n            \"asmSync\": false\n        },\n        \"trust\": {\n            \"class\": \"DeviceTrust\",\n            \"localUsername\": \"{{bigip_admin}}\",\n            \"localPassword\": \"{{bigip_admin_password}}\",\n            \"remoteHost\": \"{{bigip2_mgmt_ip}}\",\n            \"remoteUsername\": \"{{bigip_admin}}\",\n            \"remotePassword\": \"{{bigip_admin_password}}\"\n        },\n        \"dbvars\": {\n            \"class\": \"DbVariables\",\n            \"ui.advisory.enabled\": true,\n            \"ui.advisory.color\": \"green\",\n            \"ui.advisory.text\": \"/Common/hostname\"\n        }\n    }\n}"
+						},
+						"url": {
+							"raw": "https://{{bigip1_mgmt_ip}}/mgmt/shared/declarative-onboarding/",
+							"protocol": "https",
+							"host": [
+								"{{bigip1_mgmt_ip}}"
+							],
+							"path": [
+								"mgmt",
+								"shared",
+								"declarative-onboarding",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Lab 4.3 - AS3 Declarations with Pool Member AutoDiscovery",
+			"item": [
+				{
+					"name": "Step 1: Check AS3 - BIGIP1",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{bigip_admin_password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://{{bigip1_mgmt_ip}}/mgmt/shared/appsvcs/info",
+							"protocol": "https",
+							"host": [
+								"{{bigip1_mgmt_ip}}"
+							],
+							"path": [
+								"mgmt",
+								"shared",
+								"appsvcs",
+								"info"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Step 2: Check AS3 - BIGIP2",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{bigip_admin_password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://{{bigip2_mgmt_ip}}/mgmt/shared/appsvcs/info",
+							"protocol": "https",
+							"host": [
+								"{{bigip2_mgmt_ip}}"
+							],
+							"path": [
+								"mgmt",
+								"shared",
+								"appsvcs",
+								"info"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Step 3: Create AS3 - Example01/example01 with AutoDiscover pool members",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{bigip_admin_password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"class\": \"ADC\",\n    \"schemaVersion\": \"3.11.0\",\n    \"label\": \"Converted Declaration\",\n    \"remark\": \"Auto-generated by Project Charon\",\n    \"Common\": {\n        \"class\": \"Tenant\",\n        \"Shared\": {\n            \"class\": \"Application\",\n            \"template\": \"shared\",\n            \"pool1\": {\n                \"class\": \"Pool\",\n                \"monitors\": [\n                    {\n                        \"bigip\": \"/Common/http\"\n                    }\n                ],\n                \"members\": [\n                    {\n                        \"servicePort\": 80,\n                        \"addressDiscovery\": \"aws\",\n                        \"region\": \"{{aws_region}}\",\n                        \"updateInterval\": 20,\n                        \"tagKey\": \"findme\",\n                        \"tagValue\": \"web\",\n                        \"addressRealm\": \"private\",\n                        \"adminState\": \"enable\",\n                        \"autoPopulate\": true,\n                        \"enable\": true\n                    }\n                ]\n            }\n        }\n    },\n    \"Example01\": {\n        \"class\": \"Tenant\",\n        \"Shared\": {\n            \"class\": \"Application\",\n            \"template\": \"shared\",\n            \"example01a\": {\n                \"remark\": \"basic standard virtual server\",\n                \"layer4\": \"tcp\",\n                \"pool\": \"/Common/Shared/pool1\",\n                \"translateServerAddress\": true,\n                \"translateServerPort\": true,\n                \"class\": \"Service_TCP\",\n                \"profileTCP\": {\n                    \"bigip\": \"/Common/tcp\"\n                },\n                \"virtualAddresses\": [\n                    {\n                        \"use\": \"example01a_service_address\"\n                    }\n                ],\n                \"virtualPort\": 80,\n                \"snat\": \"auto\"\n            },\n            \"example01a_service_address\": {\n                \"class\": \"Service_Address\",\n                \"virtualAddress\": \"{{bigip1_example01_address}}\",\n                \"arpEnabled\": true,\n                \"icmpEcho\": \"enable\",\n                \"routeAdvertisement\": \"enable\",\n                \"spanningEnabled\": false,\n                \"trafficGroup\": \"none\"\n            },\n            \"example01b\": {\n                \"remark\": \"basic standard virtual server\",\n                \"layer4\": \"tcp\",\n                \"pool\": \"/Common/Shared/pool1\",\n                \"translateServerAddress\": true,\n                \"translateServerPort\": true,\n                \"class\": \"Service_TCP\",\n                \"profileTCP\": {\n                    \"bigip\": \"/Common/tcp\"\n                },\n                \"virtualAddresses\": [\n                    {\n                        \"use\": \"example01b_service_address\"\n                    }\n                ],\n                \"virtualPort\": 80,\n                \"snat\": \"auto\"\n            },\n            \"example01b_service_address\": {\n                \"class\": \"Service_Address\",\n                \"virtualAddress\": \"{{bigip2_example01_address}}\",\n                \"arpEnabled\": true,\n                \"icmpEcho\": \"enable\",\n                \"routeAdvertisement\": \"enable\",\n                \"spanningEnabled\": false,\n                \"trafficGroup\": \"none\"\n            }\n        }\n    }\n}"
+						},
+						"url": {
+							"raw": "https://{{bigip1_mgmt_ip}}/mgmt/shared/appsvcs/declare?show=full",
+							"protocol": "https",
+							"host": [
+								"{{bigip1_mgmt_ip}}"
+							],
+							"path": [
+								"mgmt",
+								"shared",
+								"appsvcs",
+								"declare"
+							],
+							"query": [
+								{
+									"key": "show",
+									"value": "full"
+								}
+							]
+						},
+						"description": "AutoDiscover nodes will only join pool and light up green if dummy IP exists in declaration?\n\n                  {\n                        \"servicePort\": 80,\n                        \"serverAddresses\": [\n                            \"192.168.0.55\"\n                        ]\n                    }"
+					},
+					"response": []
+				},
+				{
+					"name": "Step 4: Create AS3 - Example01/example01 HA Modern Protocols",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{bigip_admin_password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"class\": \"ADC\",\n    \"schemaVersion\": \"3.11.0\",\n    \"id\": \"urn:uuid:68bee3e5-0c0c-49ed-b7c4-778362a5520b\",\n    \"label\": \"Converted Declaration\",\n    \"remark\": \"Auto-generated by Project Charon\",\n    \"Common\": {\n        \"class\": \"Tenant\",\n        \"Shared\": {\n            \"class\": \"Application\",\n            \"template\": \"shared\",\n            \"pool1\": {\n                \"members\": [\n                    {\n                        \"servicePort\": 80,\n                        \"addressDiscovery\": \"aws\",\n                        \"region\": \"{{aws_region}}\",\n                        \"updateInterval\": 20,\n                        \"tagKey\": \"findme\",\n                        \"tagValue\": \"web\",\n                        \"addressRealm\": \"private\",\n                        \"adminState\": \"enable\",\n                        \"autoPopulate\": true,\n                        \"enable\": true\n                    }\n                ],\n                \"monitors\": [\n                    {\n                        \"bigip\": \"/Common/http\"\n                    }\n                ],\n                \"class\": \"Pool\"\n            }\n        }\n    },\n    \"Example01\": {\n        \"class\": \"Tenant\",\n        \"Shared\": {\n            \"class\": \"Application\",\n            \"template\": \"shared\",\n            \"certificate_default\": {\n                \"class\": \"Certificate\",\n                \"certificate\": {\n                    \"bigip\": \"/Common/default.crt\"\n                },\n                \"privateKey\": {\n                    \"bigip\": \"/Common/default.key\"\n                }\n            },\n            \"clientssl_secure_example01\": {\n                \"certificates\": [\n                    {\n                        \"certificate\": \"certificate_default\"\n                    }\n                ],\n                \"ciphers\": \"none\",\n                \"renegotiationEnabled\": false,\n                \"class\": \"TLS_Server\"\n            },\n            \"http2_example01\": {\n                \"class\": \"HTTP2_Profile\",\n                \"enforceTlsRequirements\": false\n            },\n            \"example01a\": {\n                \"remark\": \"basic standard virtual server\",\n                \"layer4\": \"tcp\",\n                \"pool\": \"/Common/Shared/pool1\",\n                \"translateServerAddress\": true,\n                \"translateServerPort\": true,\n                \"class\": \"Service_HTTPS\",\n                \"profileHTTP\": {\n                    \"bigip\": \"/Common/http\"\n                },\n                \"profileMultiplex\": {\n                    \"bigip\": \"/Common/oneconnect\"\n                },\n                \"profileTCP\": {\n                    \"bigip\": \"/Common/tcp\"\n                },\n                \"serverTLS\": \"clientssl_secure_example01\",\n                \"virtualAddresses\": [\n                    {\n                        \"use\": \"example01a_service_address\"\n                    }\n                ],\n                \"virtualPort\": 443,\n                \"snat\": \"auto\"\n            },\n            \"example01a_service_address\": {\n                \"class\": \"Service_Address\",\n                \"virtualAddress\": \"{{bigip1_example01_address}}\",\n                \"arpEnabled\": true,\n                \"icmpEcho\": \"enable\",\n                \"routeAdvertisement\": \"enable\",\n                \"spanningEnabled\": false,\n                \"trafficGroup\": \"none\"\n            },\n            \"example01b\": {\n                \"remark\": \"basic standard virtual server\",\n                \"layer4\": \"tcp\",\n                \"pool\": \"/Common/Shared/pool1\",\n                \"translateServerAddress\": true,\n                \"translateServerPort\": true,\n                \"class\": \"Service_HTTPS\",\n                \"profileHTTP\": {\n                    \"bigip\": \"/Common/http\"\n                },\n                \"profileMultiplex\": {\n                    \"bigip\": \"/Common/oneconnect\"\n                },\n                \"profileTCP\": {\n                    \"bigip\": \"/Common/tcp\"\n                },\n                \"serverTLS\": \"clientssl_secure_example01\",\n                \"virtualAddresses\": [\n                    {\n                        \"use\": \"example01b_service_address\"\n                    }\n                ],\n                \"virtualPort\": 443,\n                \"snat\": \"auto\"\n            },\n            \"example01b_service_address\": {\n                \"class\": \"Service_Address\",\n                \"virtualAddress\": \"{{bigip2_example01_address}}\",\n                \"arpEnabled\": true,\n                \"icmpEcho\": \"enable\",\n                \"routeAdvertisement\": \"enable\",\n                \"spanningEnabled\": false,\n                \"trafficGroup\": \"none\"\n            }\n        }\n    }\n}"
+						},
+						"url": {
+							"raw": "https://{{bigip1_mgmt_ip}}/mgmt/shared/appsvcs/declare?show=full",
+							"protocol": "https",
+							"host": [
+								"{{bigip1_mgmt_ip}}"
+							],
+							"path": [
+								"mgmt",
+								"shared",
+								"appsvcs",
+								"declare"
+							],
+							"query": [
+								{
+									"key": "show",
+									"value": "full"
+								}
+							]
+						},
+						"description": "Works but I have to create the http2 profile first."
+					},
+					"response": []
+				},
+				{
+					"name": "Step 5: Create AS3 - Example01/example01 HA Modern Protocols",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{bigip_admin_password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"class\": \"ADC\",\n    \"schemaVersion\": \"3.11.0\",\n    \"id\": \"urn:uuid:68bee3e5-0c0c-49ed-b7c4-778362a5520b\",\n    \"label\": \"Converted Declaration\",\n    \"remark\": \"Auto-generated by Project Charon\",\n    \"Common\": {\n        \"class\": \"Tenant\",\n        \"Shared\": {\n            \"class\": \"Application\",\n            \"template\": \"shared\",\n            \"pool1\": {\n                \"members\": [\n                    {\n                        \"servicePort\": 80,\n                        \"addressDiscovery\": \"aws\",\n                        \"region\": \"{{aws_region}}\",\n                        \"updateInterval\": 20,\n                        \"tagKey\": \"findme\",\n                        \"tagValue\": \"web\",\n                        \"addressRealm\": \"private\",\n                        \"adminState\": \"enable\",\n                        \"autoPopulate\": true,\n                        \"enable\": true\n                    }\n                ],\n                \"monitors\": [\n                    {\n                        \"bigip\": \"/Common/http\"\n                    }\n                ],\n                \"class\": \"Pool\"\n            }\n        }\n    },\n    \"Example01\": {\n        \"class\": \"Tenant\",\n        \"Shared\": {\n            \"class\": \"Application\",\n            \"template\": \"shared\",\n            \"certificate_default\": {\n                \"class\": \"Certificate\",\n                \"certificate\": {\n                    \"bigip\": \"/Common/default.crt\"\n                },\n                \"privateKey\": {\n                    \"bigip\": \"/Common/default.key\"\n                }\n            },\n            \"clientssl_secure_example01\": {\n                \"certificates\": [\n                    {\n                        \"certificate\": \"certificate_default\"\n                    }\n                ],\n                \"ciphers\": \"none\",\n                \"renegotiationEnabled\": false,\n                \"class\": \"TLS_Server\"\n            },\n            \"http2_example01\": {\n                \"class\": \"HTTP2_Profile\",\n                \"enforceTlsRequirements\": false\n            },\n            \"example01a\": {\n                \"remark\": \"basic standard virtual server\",\n                \"layer4\": \"tcp\",\n                \"pool\": \"/Common/Shared/pool1\",\n                \"translateServerAddress\": true,\n                \"translateServerPort\": true,\n                \"class\": \"Service_HTTPS\",\n                \"profileHTTP\": {\n                    \"bigip\": \"/Common/http\"\n                },\n                \"profileMultiplex\": {\n                    \"bigip\": \"/Common/oneconnect\"\n                },\n                \"profileTCP\": {\n                    \"bigip\": \"/Common/tcp\"\n                },\n                \"serverTLS\": \"clientssl_secure_example01\",\n                \"virtualAddresses\": [\n                    {\n                        \"use\": \"example01a_service_address\"\n                    }\n                ],\n                \"virtualPort\": 443,\n                \"snat\": \"auto\",\n                \"profileHTTP2\": {\n                    \"bigip\": \"/Example01/Shared/http2_example01\"\n                }\n            },\n            \"example01a_service_address\": {\n                \"class\": \"Service_Address\",\n                \"virtualAddress\": \"{{bigip1_example01_address}}\",\n                \"arpEnabled\": true,\n                \"icmpEcho\": \"enable\",\n                \"routeAdvertisement\": \"enable\",\n                \"spanningEnabled\": false,\n                \"trafficGroup\": \"none\"\n            },\n            \"example01b\": {\n                \"remark\": \"basic standard virtual server\",\n                \"layer4\": \"tcp\",\n                \"pool\": \"/Common/Shared/pool1\",\n                \"translateServerAddress\": true,\n                \"translateServerPort\": true,\n                \"class\": \"Service_HTTPS\",\n                \"profileHTTP\": {\n                    \"bigip\": \"/Common/http\"\n                },\n                \"profileMultiplex\": {\n                    \"bigip\": \"/Common/oneconnect\"\n                },\n                \"profileTCP\": {\n                    \"bigip\": \"/Common/tcp\"\n                },\n                \"serverTLS\": \"clientssl_secure_example01\",\n                \"virtualAddresses\": [\n                    {\n                        \"use\": \"example01b_service_address\"\n                    }\n                ],\n                \"virtualPort\": 443,\n                \"snat\": \"auto\",\n                \"profileHTTP2\": {\n                    \"bigip\": \"/Example01/Shared/http2_example01\"\n                }\n            },\n            \"example01b_service_address\": {\n                \"class\": \"Service_Address\",\n                \"virtualAddress\": \"{{bigip2_example01_address}}\",\n                \"arpEnabled\": true,\n                \"icmpEcho\": \"enable\",\n                \"routeAdvertisement\": \"enable\",\n                \"spanningEnabled\": false,\n                \"trafficGroup\": \"none\"\n            }\n        }\n    }\n}"
+						},
+						"url": {
+							"raw": "https://{{bigip1_mgmt_ip}}/mgmt/shared/appsvcs/declare?show=full",
+							"protocol": "https",
+							"host": [
+								"{{bigip1_mgmt_ip}}"
+							],
+							"path": [
+								"mgmt",
+								"shared",
+								"appsvcs",
+								"declare"
+							],
+							"query": [
+								{
+									"key": "show",
+									"value": "full"
+								}
+							]
+						},
+						"description": "Works but I have to create the http2 profile first."
+					},
+					"response": []
+				},
+				{
+					"name": "Step 6: Create AS3 - Example01/example01 ECDSA Cert",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{bigip_admin_password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"class\": \"ADC\",\n    \"schemaVersion\": \"3.11.0\",\n    \"id\": \"urn:uuid:68bee3e5-0c0c-49ed-b7c4-778362a5520b\",\n    \"label\": \"Converted Declaration\",\n    \"remark\": \"Auto-generated by Project Charon\",\n    \"Common\": {\n        \"class\": \"Tenant\",\n        \"Shared\": {\n            \"class\": \"Application\",\n            \"template\": \"shared\",\n            \"pool1\": {\n                \"members\": [\n                    {\n                        \"servicePort\": 80,\n                        \"addressDiscovery\": \"aws\",\n                        \"region\": \"{{aws_region}}\",\n                        \"updateInterval\": 20,\n                        \"tagKey\": \"findme\",\n                        \"tagValue\": \"web\",\n                        \"addressRealm\": \"private\",\n                        \"adminState\": \"enable\",\n                        \"autoPopulate\": true,\n                        \"enable\": true\n                    }\n                ],\n                \"monitors\": [\n                    {\n                        \"bigip\": \"/Common/http\"\n                    }\n                ],\n                \"class\": \"Pool\"\n            }\n        }\n    },\n    \"Example01\": {\n        \"class\": \"Tenant\",\n        \"Shared\": {\n            \"class\": \"Application\",\n            \"template\": \"shared\",\n            \"certificate_default\": {\n                \"class\": \"Certificate\",\n                \"certificate\": {\n                    \"bigip\": \"/Common/default.crt\"\n                },\n                \"privateKey\": {\n                    \"bigip\": \"/Common/default.key\"\n                }\n            },\n            \"clientssl_secure_example01a\": {\n                \"certificates\": [\n                    {\n                        \"certificate\": \"webcert1a\"\n                    }\n                ],\n                \"renegotiationEnabled\": false,\n                \"class\": \"TLS_Server\"\n            },\n            \"webcert1a\": {\n                \"class\": \"Certificate\",\n                \"remark\": \"in practice we recommend using a passphrase\",\n                \"certificate\": \"{{example01a_cert}}\",\n                \"privateKey\": \"{{example01a_key}}\"\n            },\n            \"clientssl_secure_example01b\": {\n                \"certificates\": [\n                    {\n                        \"certificate\": \"webcert1b\"\n                    }\n                ],\n                \"renegotiationEnabled\": false,\n                \"class\": \"TLS_Server\"\n            },\n            \"webcert1b\": {\n                \"class\": \"Certificate\",\n                \"remark\": \"in practice we recommend using a passphrase\",\n                \"certificate\": \"{{example01b_cert}}\",\n                \"privateKey\": \"{{example01b_key}}\"\n            },\n            \"http2_example01\": {\n                \"class\": \"HTTP2_Profile\",\n                \"enforceTlsRequirements\": false\n            },\n            \"example01a\": {\n                \"remark\": \"basic standard virtual server\",\n                \"layer4\": \"tcp\",\n                \"pool\": \"/Common/Shared/pool1\",\n                \"translateServerAddress\": true,\n                \"translateServerPort\": true,\n                \"class\": \"Service_HTTPS\",\n                \"profileHTTP\": {\n                    \"bigip\": \"/Common/http\"\n                },\n                \"profileMultiplex\": {\n                    \"bigip\": \"/Common/oneconnect\"\n                },\n                \"profileTCP\": {\n                    \"bigip\": \"/Common/tcp\"\n                },\n                \"serverTLS\": \"clientssl_secure_example01a\",\n                \"virtualAddresses\": [\n                    {\n                        \"use\": \"example01a_service_address\"\n                    }\n                ],\n                \"virtualPort\": 443,\n                \"snat\": \"auto\",\n                \"profileHTTP2\": {\n                    \"bigip\": \"/Example01/Shared/http2_example01\"\n                }\n            },\n            \"example01a_service_address\": {\n                \"class\": \"Service_Address\",\n                \"virtualAddress\": \"{{bigip1_example01_address}}\",\n                \"arpEnabled\": true,\n                \"icmpEcho\": \"enable\",\n                \"routeAdvertisement\": \"enable\",\n                \"spanningEnabled\": false,\n                \"trafficGroup\": \"none\"\n            },\n            \"example01b\": {\n                \"remark\": \"basic standard virtual server\",\n                \"layer4\": \"tcp\",\n                \"pool\": \"/Common/Shared/pool1\",\n                \"translateServerAddress\": true,\n                \"translateServerPort\": true,\n                \"class\": \"Service_HTTPS\",\n                \"profileHTTP\": {\n                    \"bigip\": \"/Common/http\"\n                },\n                \"profileMultiplex\": {\n                    \"bigip\": \"/Common/oneconnect\"\n                },\n                \"profileTCP\": {\n                    \"bigip\": \"/Common/tcp\"\n                },\n                \"serverTLS\": \"clientssl_secure_example01b\",\n                \"virtualAddresses\": [\n                    {\n                        \"use\": \"example01b_service_address\"\n                    }\n                ],\n                \"virtualPort\": 443,\n                \"snat\": \"auto\",\n                \"profileHTTP2\": {\n                    \"bigip\": \"/Example01/Shared/http2_example01\"\n                }\n            },\n            \"example01b_service_address\": {\n                \"class\": \"Service_Address\",\n                \"virtualAddress\": \"{{bigip2_example01_address}}\",\n                \"arpEnabled\": true,\n                \"icmpEcho\": \"enable\",\n                \"routeAdvertisement\": \"enable\",\n                \"spanningEnabled\": false,\n                \"trafficGroup\": \"none\"\n            }\n        }\n    }\n}"
+						},
+						"url": {
+							"raw": "https://{{bigip1_mgmt_ip}}/mgmt/shared/appsvcs/declare?show=full",
+							"protocol": "https",
+							"host": [
+								"{{bigip1_mgmt_ip}}"
+							],
+							"path": [
+								"mgmt",
+								"shared",
+								"appsvcs",
+								"declare"
+							],
+							"query": [
+								{
+									"key": "show",
+									"value": "full"
+								}
+							]
+						},
+						"description": "Works but I have to move the \"No TLSV1.3\" out of the Enabled Options list. How can I make the clientssl-secure the parent profile instead of clientssl?"
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Lab 4.4 - F5 Cloud Failover",
+			"item": [
+				{
+					"name": "Step 1: Check f5-cloud-failover - BIGIP1",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{bigip_admin_password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://{{bigip1_mgmt_ip}}/mgmt/shared/cloud-failover/info",
+							"protocol": "https",
+							"host": [
+								"{{bigip1_mgmt_ip}}"
+							],
+							"path": [
+								"mgmt",
+								"shared",
+								"cloud-failover",
+								"info"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Step 2: Check f5-cloud-failover - BIGIP2",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{bigip_admin_password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://{{bigip2_mgmt_ip}}/mgmt/shared/cloud-failover/info",
+							"protocol": "https",
+							"host": [
+								"{{bigip2_mgmt_ip}}"
+							],
+							"path": [
+								"mgmt",
+								"shared",
+								"cloud-failover",
+								"info"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Step 3: POST f5-cloud-failover - BIGIP1",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{bigip_admin_password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"class\": \"Cloud_Failover\",\n    \"environment\": \"aws\",\n    \"externalStorage\": {\n        \"scopingTags\": {\n            \"f5_cloud_failover_label\": \"mydeployment\"\n        }\n    },\n    \"failoverAddresses\": {\n        \"scopingTags\": {\n            \"f5_cloud_failover_label\": \"example01\"\n        }\n    }\n}"
+						},
+						"url": {
+							"raw": "https://{{bigip1_mgmt_ip}}/mgmt/shared/cloud-failover/declare",
+							"protocol": "https",
+							"host": [
+								"{{bigip1_mgmt_ip}}"
+							],
+							"path": [
+								"mgmt",
+								"shared",
+								"cloud-failover",
+								"declare"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Step 4: POST f5-cloud-failover - BIGIP2",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{bigip_admin_password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"class\": \"Cloud_Failover\",\n    \"environment\": \"aws\",\n    \"externalStorage\": {\n        \"scopingTags\": {\n            \"f5_cloud_failover_label\": \"mydeployment\"\n        }\n    },\n    \"failoverAddresses\": {\n        \"scopingTags\": {\n            \"f5_cloud_failover_label\": \"example01\"\n        }\n    }\n}"
+						},
+						"url": {
+							"raw": "https://{{bigip2_mgmt_ip}}/mgmt/shared/cloud-failover/declare",
+							"protocol": "https",
+							"host": [
+								"{{bigip2_mgmt_ip}}"
+							],
+							"path": [
+								"mgmt",
+								"shared",
+								"cloud-failover",
+								"declare"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Lab 4.5 - AS3 Declarations with Pool Member AutoDiscovery - Advanced",
+			"item": [
+				{
+					"name": "Step 1: Create AS3 - Example01/example01 - HA Analytics",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{bigip_admin_password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"class\": \"ADC\",\n    \"schemaVersion\": \"3.11.0\",\n    \"id\": \"urn:uuid:68bee3e5-0c0c-49ed-b7c4-778362a5520b\",\n    \"label\": \"Converted Declaration\",\n    \"remark\": \"Auto-generated by Project Charon\",\n    \"Common\": {\n        \"class\": \"Tenant\",\n        \"Shared\": {\n            \"class\": \"Application\",\n            \"template\": \"shared\",\n            \"pool1\": {\n                \"members\": [\n                    {\n                        \"servicePort\": 80,\n                        \"addressDiscovery\": \"aws\",\n                        \"region\": \"{{aws_region}}\",\n                        \"updateInterval\": 20,\n                        \"tagKey\": \"findme\",\n                        \"tagValue\": \"web\",\n                        \"addressRealm\": \"private\",\n                        \"adminState\": \"enable\",\n                        \"autoPopulate\": true,\n                        \"enable\": true\n                    }\n                ],\n                \"monitors\": [\n                    {\n                        \"bigip\": \"/Common/http\"\n                    }\n                ],\n                \"class\": \"Pool\"\n            }\n        }\n    },\n    \"Example01\": {\n        \"class\": \"Tenant\",\n        \"Shared\": {\n            \"class\": \"Application\",\n            \"template\": \"shared\",\n            \"certificate_default\": {\n                \"class\": \"Certificate\",\n                \"certificate\": {\n                    \"bigip\": \"/Common/default.crt\"\n                },\n                \"privateKey\": {\n                    \"bigip\": \"/Common/default.key\"\n                }\n            },\n            \"clientssl_secure_example01a\": {\n                \"certificates\": [\n                    {\n                        \"certificate\": \"webcert1a\"\n                    }\n                ],\n                \"renegotiationEnabled\": false,\n                \"class\": \"TLS_Server\"\n            },\n            \"webcert1a\": {\n                \"class\": \"Certificate\",\n                \"remark\": \"in practice we recommend using a passphrase\",\n                \"certificate\": \"{{example01a_cert}}\",\n                \"privateKey\": \"{{example01a_key}}\"\n            },\n            \"clientssl_secure_example01b\": {\n                \"certificates\": [\n                    {\n                        \"certificate\": \"webcert1b\"\n                    }\n                ],\n                \"renegotiationEnabled\": false,\n                \"class\": \"TLS_Server\"\n            },\n            \"webcert1b\": {\n                \"class\": \"Certificate\",\n                \"remark\": \"in practice we recommend using a passphrase\",\n                \"certificate\": \"{{example01b_cert}}\",\n                \"privateKey\": \"{{example01b_key}}\"\n            },\n            \"http2_example01\": {\n                \"class\": \"HTTP2_Profile\",\n                \"enforceTlsRequirements\": false\n            },\n            \"example01a\": {\n                \"remark\": \"basic standard virtual server\",\n                \"layer4\": \"tcp\",\n                \"pool\": \"/Common/Shared/pool1\",\n                \"translateServerAddress\": true,\n                \"translateServerPort\": true,\n                \"class\": \"Service_HTTPS\",\n                \"profileHTTP\": {\n                    \"bigip\": \"/Common/http\"\n                },\n                \"profileMultiplex\": {\n                    \"bigip\": \"/Common/oneconnect\"\n                },\n                \"profileTCP\": {\n                    \"bigip\": \"/Common/tcp\"\n                },\n                \"serverTLS\": \"clientssl_secure_example01a\",\n                \"virtualAddresses\": [\n                    {\n                        \"use\": \"example01a_service_address\"\n                    }\n                ],\n                \"profileAnalytics\": {\n                    \"use\": \"/Example01/Shared/analytics_custom\"\n                },\n                \"profileTrafficLog\": {\n                    \"use\": \"/Example01/Shared/request_log_custom\"\n                },\n                \"virtualPort\": 443,\n                \"snat\": \"auto\",\n                \"profileHTTP2\": {\n                    \"bigip\": \"/Example01/Shared/http2_example01\"\n                }\n            },\n            \"example01a_service_address\": {\n                \"class\": \"Service_Address\",\n                \"virtualAddress\": \"{{bigip1_example01_address}}\",\n                \"arpEnabled\": true,\n                \"icmpEcho\": \"enable\",\n                \"routeAdvertisement\": \"enable\",\n                \"spanningEnabled\": false,\n                \"trafficGroup\": \"none\"\n            },\n            \"example01b\": {\n                \"remark\": \"basic standard virtual server\",\n                \"layer4\": \"tcp\",\n                \"pool\": \"/Common/Shared/pool1\",\n                \"translateServerAddress\": true,\n                \"translateServerPort\": true,\n                \"class\": \"Service_HTTPS\",\n                \"profileHTTP\": {\n                    \"bigip\": \"/Common/http\"\n                },\n                \"profileMultiplex\": {\n                    \"bigip\": \"/Common/oneconnect\"\n                },\n                \"profileTCP\": {\n                    \"bigip\": \"/Common/tcp\"\n                },\n                \"serverTLS\": \"clientssl_secure_example01b\",\n                \"virtualAddresses\": [\n                    {\n                        \"use\": \"example01b_service_address\"\n                    }\n                ],\n                \"profileAnalytics\": {\n                    \"use\": \"/Example01/Shared/analytics_custom\"\n                },\n                \"profileTrafficLog\": {\n                    \"use\": \"/Example01/Shared/request_log_custom\"\n                },\n                \"virtualPort\": 443,\n                \"snat\": \"auto\",\n                \"profileHTTP2\": {\n                    \"bigip\": \"/Example01/Shared/http2_example01\"\n                }\n            },\n            \"analytics_custom\": {\n                \"capturedTrafficExternalLogging\": true,\n                \"capturedTrafficInternalLogging\": true,\n                \"collectGeo\": true,\n                \"collectClientSideStatistics\": true,\n                \"collectIp\": true,\n                \"collectMaxTpsAndThroughput\": true,\n                \"collectMethod\": true,\n                \"collectOsAndBrowser\": true,\n                \"collectPageLoadTime\": true,\n                \"collectResponseCode\": true,\n                \"collectSubnet\": true,\n                \"collectUrl\": true,\n                \"collectUserAgent\": true,\n                \"collectUserSession\": true,\n                \"collectedStatsExternalLogging\": true,\n                \"collectedStatsInternalLogging\": true,\n                \"remark\": \"none\",\n                \"notificationByEmail\": false,\n                \"notificationBySnmp\": false,\n                \"notificationBySyslog\": true,\n                \"publishIruleStatistics\": true,\n                \"sessionCookieSecurity\": \"ssl-only\",\n                \"sessionTimeoutMinutes\": 5,\n                \"class\": \"Analytics_Profile\",\n                \"captureFilter\": {\n                    \"requestCapturedParts\": \"headers\",\n                    \"responseCapturedParts\": \"headers\"\n                }\n            },\n            \"request_log_custom\": {\n                \"parentProfile\": {\n                    \"bigip\": \"/Common/request-log\"\n                },\n                \"class\": \"Traffic_Log_Profile\",\n                \"requestSettings\": {\n                    \"requestErrorLoggingEnabled\": false,\n                    \"proxyCloseOnErrorEnabled\": false,\n                    \"proxyRespondOnLoggingErrorEnabled\": false,\n                    \"requestEnabled\": true,\n                    \"requestErrorProtocol\": \"mds-udp\",\n                    \"requestProtocol\": \"mds-udp\"\n                },\n                \"responseSettings\": {\n                    \"byDefaultEnabled\": true,\n                    \"responseEnabled\": true,\n                    \"responseErrorLoggingEnabled\": false,\n                    \"responseErrorProtocol\": \"mds-udp\",\n                    \"responseProtocol\": \"mds-udp\"\n                }\n            },\n            \"example01b_service_address\": {\n                \"class\": \"Service_Address\",\n                \"virtualAddress\": \"{{bigip2_example01_address}}\",\n                \"arpEnabled\": true,\n                \"icmpEcho\": \"enable\",\n                \"routeAdvertisement\": \"enable\",\n                \"spanningEnabled\": false,\n                \"trafficGroup\": \"none\"\n            }\n        }\n    }\n}"
+						},
+						"url": {
+							"raw": "https://{{bigip1_mgmt_ip}}/mgmt/shared/appsvcs/declare?show=full",
+							"protocol": "https",
+							"host": [
+								"{{bigip1_mgmt_ip}}"
+							],
+							"path": [
+								"mgmt",
+								"shared",
+								"appsvcs",
+								"declare"
+							],
+							"query": [
+								{
+									"key": "show",
+									"value": "full"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Lab 4.6 - Telemetry Streaming",
+			"item": [
+				{
+					"name": "Step 1: Confirm Telemetry Streaming REST API - BIGIP1",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{bigip_admin_password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://{{bigip1_mgmt_ip}}/mgmt/shared/telemetry/info",
+							"protocol": "https",
+							"host": [
+								"{{bigip1_mgmt_ip}}"
+							],
+							"path": [
+								"mgmt",
+								"shared",
+								"telemetry",
+								"info"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Step 2: Confirm Telemetry Streaming REST API - BIGIP2",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{bigip_admin_password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://{{bigip2_mgmt_ip}}/mgmt/shared/telemetry/info",
+							"protocol": "https",
+							"host": [
+								"{{bigip2_mgmt_ip}}"
+							],
+							"path": [
+								"mgmt",
+								"shared",
+								"telemetry",
+								"info"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Step 3: Telemetry Streaming AWS - BIGIP1",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{bigip_admin_password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"class\": \"Telemetry\",\n    \"My_System\": {\n        \"class\": \"Telemetry_System\",\n        \"systemPoller\": {\n            \"interval\": 60\n        }\n    },\n    \"My_Listener\": {\n        \"class\": \"Telemetry_Listener\",\n        \"port\": 6514\n    },\n    \"My_Consumer\": {\n        \"class\": \"Telemetry_Consumer\",\n        \"type\": \"AWS_CloudWatch\",\n        \"region\": \"{{aws_region}}\",\n        \"logGroup\": \"studentf5labdev\",\n        \"logStream\": \"log-stream\",\n        \"username\": \"{{AWS_ACCESS_KEY_ID}}\",\n        \"passphrase\": {\n            \"cipherText\": \"{{AWS_SECRET_ACCESS_KEY}}\"\n        }\n    }\n}"
+						},
+						"url": {
+							"raw": "https://{{bigip1_mgmt_ip}}/mgmt/shared/telemetry/declare",
+							"protocol": "https",
+							"host": [
+								"{{bigip1_mgmt_ip}}"
+							],
+							"path": [
+								"mgmt",
+								"shared",
+								"telemetry",
+								"declare"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Step 4: Telemetry Streaming AWS - BIGIP2",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{bigip_admin_password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"class\": \"Telemetry\",\n    \"My_System\": {\n        \"class\": \"Telemetry_System\",\n        \"systemPoller\": {\n            \"interval\": 60\n        }\n    },\n    \"My_Listener\": {\n        \"class\": \"Telemetry_Listener\",\n        \"port\": 6514\n    },\n    \"My_Consumer\": {\n        \"class\": \"Telemetry_Consumer\",\n        \"type\": \"AWS_CloudWatch\",\n        \"region\": \"{{aws_region}}\",\n        \"logGroup\": \"studentf5labdev\",\n        \"logStream\": \"log-stream\",\n        \"username\": \"{{AWS_ACCESS_KEY_ID}}\",\n        \"passphrase\": {\n            \"cipherText\": \"{{AWS_SECRET_ACCESS_KEY}}\"\n        }\n    }\n}"
+						},
+						"url": {
+							"raw": "https://{{bigip2_mgmt_ip}}/mgmt/shared/telemetry/declare",
+							"protocol": "https",
+							"host": [
+								"{{bigip2_mgmt_ip}}"
+							],
+							"path": [
+								"mgmt",
+								"shared",
+								"telemetry",
+								"declare"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "do_url",
+			"value": "https://github.com/F5Networks/f5-declarative-onboarding/releases/download/v1.36.0/{{do_file}}"
+		},
+		{
+			"key": "as3_url",
+			"value": "https://github.com/F5Networks/f5-appsvcs-extension/releases/download/v3.43.0/{{as3_file}}"
+		},
+		{
+			"key": "cfe_url",
+			"value": "https://github.com/F5Networks/f5-cloud-failover-extension/releases/download/v1.14.0/{{cfe_file}}"
+		},
+		{
+			"key": "ts_url",
+			"value": "https://github.com/F5Networks/f5-telemetry-streaming/releases/download/v1.32.0/{{ts_file}}"
+		},
+		{
+			"key": "do_file",
+			"value": "f5-declarative-onboarding-1.36.0-4.noarch.rpm"
+		},
+		{
+			"key": "as3_file",
+			"value": "f5-appsvcs-3.43.0-2.noarch.rpm"
+		},
+		{
+			"key": "cfe_file",
+			"value": "f5-cloud-failover-1.14.0-0.noarch.rpm"
+		},
+		{
+			"key": "ts_file",
+			"value": "f5-telemetry-1.32.0-2.noarch.rpm"
+		}
+	]
+}
