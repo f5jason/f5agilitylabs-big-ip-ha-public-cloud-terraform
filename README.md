@@ -1,4 +1,4 @@
-# Lab files for Agility Lab: A&amp;O BIG-IP HA in Public Cloud with Terraform
+# File package for Agility Lab: A&amp;O BIG-IP HA in Public Cloud with Terraform
 
 - Lab Guide: https://clouddocs.f5.com/training/community/public-cloud/html/class13/class13.html
 
