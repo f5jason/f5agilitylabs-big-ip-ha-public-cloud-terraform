@@ -1,5 +1,22 @@
-resource "aws_iam_role" "f5-cloud-failover-role" {
-  name = "f5-cloud-failover-role"
+# Create IAM Policy for CFE
+
+# S3 Bucket for F5 Cloud Failover Extension
+resource "aws_s3_bucket" "f5_cloud_failover_extension" {
+  bucket = "f5-cloud-failover-ext-${uuid()}"
+  tags = {
+    f5_cloud_failover_label = "mydeployment"
+  }
+  lifecycle {
+    ignore_changes = [
+      bucket
+    ]
+  }
+}
+
+
+# IAM Role for F5 Cloud Failover Extension
+resource "aws_iam_role" "f5_cloud_failover_role" {
+  name = "f5_cloud_failover_role"
 
   assume_role_policy = <<EOF
 {
@@ -76,19 +93,19 @@ EOF
 }
 
 resource "aws_iam_role_policy_attachment" "attach1" {
-  role       = aws_iam_role.f5-cloud-failover-role.name
+  role       = aws_iam_role.f5_cloud_failover_role.name
   policy_arn = aws_iam_policy.sts_assume_role.arn
 }
 resource "aws_iam_role_policy_attachment" "attach2" {
-  role       = aws_iam_role.f5-cloud-failover-role.name
+  role       = aws_iam_role.f5_cloud_failover_role.name
   policy_arn = aws_iam_policy.ec2_all.arn
 }
 resource "aws_iam_role_policy_attachment" "attach3" {
-  role       = aws_iam_role.f5-cloud-failover-role.name
+  role       = aws_iam_role.f5_cloud_failover_role.name
   policy_arn = aws_iam_policy.s3_all.arn
 }
 
 resource "aws_iam_instance_profile" "f5_cloud_failover_profile" {
   name = "f5_cloud_failover_profile"
-  role = aws_iam_role.f5-cloud-failover-role.name
+  role = aws_iam_role.f5_cloud_failover_role.name
 }

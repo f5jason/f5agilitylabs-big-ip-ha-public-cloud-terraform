@@ -1,7 +1,9 @@
 #!/bin/bash
-printf "AWS Console URL:\n%s\n\n" ${TF_VAR_AWS_CONSOLE_LINK}
-printf "AWS Console Username:\n%s\n\n" ${TF_VAR_AWS_USER}
-printf "AWS Console Password:\n%s\n\n" ${TF_VAR_AWS_PASSWORD}
+
+printf "\nAWS Credentials:\n"
+printf "   AWS Console URL:      %s\n" ${TF_VAR_AWS_CONSOLE_LINK}
+printf "   AWS Console Username: %s\n" ${TF_VAR_AWS_USER}
+printf "   AWS Console Password: %s\n\n" ${TF_VAR_AWS_PASSWORD}
 
 if [ $? -eq 0 ]
 then
