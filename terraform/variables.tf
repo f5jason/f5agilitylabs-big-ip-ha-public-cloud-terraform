@@ -33,7 +33,7 @@ variable "vpc_cidrs" {
   type        = map(map(string))
   default = {
     hub = {
-      cidr            = "10.0.0.0/16"
+      vpc             = "10.0.0.0/16"
       bigip1_mgmt     = "10.0.101.0/24"
       bigip1_external = "10.0.1.0/24"
       bigip1_internal = "10.0.10.0/24"
@@ -42,7 +42,7 @@ variable "vpc_cidrs" {
       bigip2_internal = "10.0.20.0/24"
     }
     app = {
-      cidr    = "10.1.0.0/16"
+      vpc     = "10.1.0.0/16"
       appsvr1 = "10.1.200.0/24"
       appsvr2 = "10.1.201.0/24"
     }
@@ -51,16 +51,6 @@ variable "vpc_cidrs" {
 
 
 ### App servers
-variable "appsvr_ami_map" {
-  type = map(string)
-  default = {
-    # Amazon Linux (AMD64)
-    "us-east-1"      = "ami-a4c7edb2"
-    "ap-southeast-1" = "ami-77af2014"
-    "us-west-2"      = "ami-6df1e514"
-  }
-}
-
 variable "linux_ami_search_name" {
   type    = string
   default = "amzn2-ami-minimal-hvm*2023*x86*"
@@ -96,7 +86,7 @@ variable "server_port" {
 ### BIG-IPs
 variable "f5_ami_search_name" {
   type    = string
-  default = "F5 BIGIP-16.1.3.*PAYG-Adv WAF Plus 25Mbps*"
+  default = "F5 BIGIP-17.1.*PAYG-Adv WAF Plus 25Mbps*"
 }
 
 variable "bigip_instance_type" {

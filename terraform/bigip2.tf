@@ -1,5 +1,4 @@
 # Deploy PAYG BIG-IP 3-NIC VE instance
-#
 
 #########################################################################
 # This is BIG-IP #2 - Availability Zone 2
