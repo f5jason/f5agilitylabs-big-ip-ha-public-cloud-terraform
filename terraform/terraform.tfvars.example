@@ -8,28 +8,26 @@
 ### their defaults (variables.tf) for clarity.                               ###
 ################################################################################
 
+
+# Prefix
+prefix = "f5lab"
+
+# ID
+emailid = "student@f5lab.dev"
+
 # AWS Region
 aws_region = "us-west-2"
-#  Tested in:
-#    us-west-2 (default - Oregon)
-#    us-east-1 (Virginia)
-#  If running this lab in a region other than the default us-west-2,
-#  you must edit the region both in ~/.aws/config and below!
-
-# Search filter for AMIs
-f5_ami_search_name    = "F5 BIGIP-17.1.*PAYG-Adv WAF Plus 25Mbps*"
-linux_ami_search_name = "amzn2-ami-minimal-hvm*2023*x86*"
 
 # VPC subnets
 vpc_cidrs = {
   hub = {
     vpc             = "10.0.0.0/16"
     bigip1_mgmt     = "10.0.101.0/24"
-    bigip1_external = "10.0.1.0/24"
     bigip1_internal = "10.0.10.0/24"
+    bigip1_external = "10.0.1.0/24"
     bigip2_mgmt     = "10.0.102.0/24"
-    bigip2_external = "10.0.2.0/24"
     bigip2_internal = "10.0.20.0/24"
+    bigip2_external = "10.0.2.0/24"
   }
   app = {
     vpc     = "10.1.0.0/16"
@@ -38,7 +36,10 @@ vpc_cidrs = {
   }
 }
 
-# BIG-IP IP Addresses
+# BIG-IP Variables
+f5_ami_search_name  = "F5 BIGIP-17.1.*PAYG-Adv WAF Plus 25Mbps*"
+bigip_instance_type = "m5.xlarge"
+
 bigip_netcfg = {
   bigip1 = {
     az                 = "1"
@@ -62,8 +63,10 @@ bigip_netcfg = {
   }
 }
 
+# App server variables
+linux_ami_search_name = "amzn2-ami-minimal-hvm*2023*x86*"
+linux_instance_type   = "t2.micro"
 
-# App Server IP Addresses
 appsvr_netcfg = {
   appsvr1 = {
     eth0 = "10.1.200.80"

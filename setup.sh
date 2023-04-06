@@ -6,6 +6,9 @@ chmod +x ~/f5lab/scripts/*
 # Copy additional lab shortcuts to jump host desktop
 cp ~/f5lab/scripts/desktop-files/* /mnt/c/Users/user/Desktop/
 
+# Create alias to determine jump host's public IP address
+alias myip='curl https://ifconfig.me/ip;echo'
+
 # Create aliases for common Terraform commands
 alias tf='terraform'
 alias tfi='terraform init'

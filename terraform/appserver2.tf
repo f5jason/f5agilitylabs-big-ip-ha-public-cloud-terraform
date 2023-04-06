@@ -33,6 +33,3 @@ resource "aws_instance" "appsvr2" {
 output "appsvr2_private_address" {
   value = aws_instance.appsvr2.private_ip
 }
-output "appsvr2_public_address" {
-  value = aws_instance.appsvr2.public_ip
-}

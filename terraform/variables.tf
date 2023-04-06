@@ -1,19 +1,45 @@
-### Object prefix
+### Object name prefix
 variable "prefix" {
   description = "Prefix for object creation"
   type        = string
-  default     = "f5lab"
 }
 
-### Tags
+### ID
 variable "emailid" {
   description = "emailid"
-  default     = "student@f5lab.dev"
 }
 
-variable "emailidsan" {
-  description = "emailidsan"
-  default     = "studentf5labdev"
+### AWS Region
+variable "aws_region" {
+  description = "aws region"
+  default     = "us-west-2"
+  #  Tested in:
+  #    us-west-2 (default - Oregon)
+  #    us-east-1 (Virginia)
+  #  If running this lab in a region other than the default, you must also edit 
+  #  the region in ~/.aws/config.
+}
+
+### VPCs
+variable "vpc_cidrs" {
+  description = "VPC subnets (CIDR)"
+  type        = map(map(string))
+  default = {
+    hub = {
+      vpc             = "10.0.0.0/16"
+      bigip1_mgmt     = "10.0.10.0/24"
+      bigip1_internal = "10.0.11.0/24"
+      bigip1_external = "10.0.12.0/24"
+      bigip2_mgmt     = "10.0.20.0/24"
+      bigip2_internal = "10.0.21.0/24"
+      bigip2_external = "10.0.22.0/24"
+    }
+    app = {
+      vpc     = "10.1.0.0/16"
+      appsvr1 = "10.1.10.0/24"
+      appsvr2 = "10.1.20.0/24"
+    }
+  }
 }
 
 ### AWS Keypair
@@ -22,33 +48,11 @@ variable "aws_keypair_name" {
   default     = "f5lab_aws_keypair"
 }
 
-### VPCs
-variable "aws_region" {
-  description = "aws region"
-  default     = "us-west-2"
+### Cloudwatch Log Group
+variable "aws_log_group" {
+  description = "AWS log group name"
+  default     = "studentf5labdev"
 }
-
-variable "vpc_cidrs" {
-  description = "VPC subnets (CIDR)"
-  type        = map(map(string))
-  default = {
-    hub = {
-      vpc             = "10.0.0.0/16"
-      bigip1_mgmt     = "10.0.101.0/24"
-      bigip1_external = "10.0.1.0/24"
-      bigip1_internal = "10.0.10.0/24"
-      bigip2_mgmt     = "10.0.102.0/24"
-      bigip2_external = "10.0.2.0/24"
-      bigip2_internal = "10.0.20.0/24"
-    }
-    app = {
-      vpc     = "10.1.0.0/16"
-      appsvr1 = "10.1.200.0/24"
-      appsvr2 = "10.1.201.0/24"
-    }
-  }
-}
-
 
 ### App servers
 variable "linux_ami_search_name" {
@@ -77,11 +81,6 @@ variable "appsvr_netcfg" {
   }
 }
 
-variable "server_port" {
-  description = "The port the server will use for HTTP requests"
-  default     = 80
-}
-
 
 ### BIG-IPs
 variable "f5_ami_search_name" {
@@ -106,27 +105,28 @@ variable "bigip_netcfg" {
       az                 = "1"
       hostname           = "bigip1.f5lab.dev"
       tag                = "bigip1-az1-3nic-payg"
-      mgmt               = "10.0.101.11/24"
-      internal           = "10.0.10.11/24"
-      external           = "10.0.1.11/24"
-      external_secondary = "10.0.1.12/24"
-      app_vips           = ["10.0.1.101", "10.0.1.102", "10.0.1.103", "10.0.1.104"]
+      mgmt               = "10.0.10.11/24"
+      internal           = "10.0.11.11/24"
+      external           = "10.0.12.11/24"
+      external_secondary = "10.0.12.12/24"
+      app_vips           = ["10.0.12.101", "10.0.12.102", "10.0.12.103", "10.0.12.104"]
     }
     bigip2 = {
       az                 = "2"
       hostname           = "bigip2.f5lab.dev"
       tag                = "bigip2-az2-3nic-payg"
-      mgmt               = "10.0.102.11/24"
-      internal           = "10.0.20.11/24"
-      external           = "10.0.2.11/24"
-      external_secondary = "10.0.2.12/24"
-      app_vips           = ["10.0.2.101", "10.0.2.102", "10.0.2.103", "10.0.2.104"]
+      mgmt               = "10.0.20.11/24"
+      internal           = "10.0.21.11/24"
+      external           = "10.0.22.11/24"
+      external_secondary = "10.0.22.12/24"
+      app_vips           = ["10.0.22.101", "10.0.22.102", "10.0.22.103", "10.0.22.104"]
     }
   }
 }
 
 
-# F5 Automation Toolchain package download URLs
+### F5 Automation Toolchain package download URLs
+
 # Please check and update the latest runtime init URL from https://github.com/F5Networks/f5-bigip-runtime-init/releases/latest
 # always point to a specific version in order to avoid inadvertent configuration inconsistency
 variable "INIT_URL" {
