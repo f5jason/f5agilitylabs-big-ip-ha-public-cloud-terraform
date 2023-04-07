@@ -61,8 +61,8 @@
             "webcert1a": {
                 "class": "Certificate",
                 "remark": "in practice we recommend using a passphrase",
-                "certificate": "{{example01a_cert}}",
-                "privateKey": "{{example01a_key}}"
+                "certificate": "{Student inserts cert text}",
+                "privateKey": "{Student inserts key text}"
             },
             "clientssl_secure_example01b": {
                 "certificates": [
@@ -76,8 +76,8 @@
             "webcert1b": {
                 "class": "Certificate",
                 "remark": "in practice we recommend using a passphrase",
-                "certificate": "{{example01b_cert}}",
-                "privateKey": "{{example01b_key}}"
+                "certificate": "{Student inserts cert text}",
+                "privateKey": "{Student inserts key text}"
             },
             "http2_example01": {
                 "class": "HTTP2_Profile",
