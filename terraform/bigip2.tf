@@ -87,6 +87,12 @@ resource "aws_network_interface" "bigip2_mgmt" {
   subnet_id       = aws_subnet.hub_bigip2_mgmt.id
   private_ips     = [split("/", var.bigip_netcfg["bigip2"]["mgmt"])[0]]
   security_groups = [aws_security_group.f5_mgmt.id]
+
+  tags = {
+    Name  = "${var.prefix}_bigip2_mgmt"
+    Owner = var.emailid
+  }
+
 }
 
 resource "aws_network_interface" "bigip2_external" {
@@ -98,6 +104,8 @@ resource "aws_network_interface" "bigip2_external" {
 
   # Cloud Failover Extension Tags
   tags = {
+    Name                    = "${var.prefix}_bigip2_external"
+    Owner                   = var.emailid
     f5_cloud_failover_label = "mydeployment"
     #f5_cloud_failover_nics  = "external"
   }
@@ -109,6 +117,12 @@ resource "aws_network_interface" "bigip2_internal" {
   private_ips       = [split("/", var.bigip_netcfg["bigip2"]["internal"])[0]]
   source_dest_check = "false"
   security_groups   = [aws_security_group.f5_internal.id]
+
+  tags = {
+    Name  = "${var.prefix}_bigip2_internal"
+    Owner = var.emailid
+  }
+
 }
 
 # Public IP Address for management IP (jumphost inbound access)
