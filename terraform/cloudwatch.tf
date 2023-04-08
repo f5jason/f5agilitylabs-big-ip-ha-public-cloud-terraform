@@ -4,8 +4,6 @@ resource "aws_cloudwatch_log_group" "log-group" {
   tags = {
     Name  = format("%s_%s_log_group", var.prefix, var.aws_log_group)
     Owner = var.emailid
-
-
   }
 }
 
