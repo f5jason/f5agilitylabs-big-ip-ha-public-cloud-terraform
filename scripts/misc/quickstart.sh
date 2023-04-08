@@ -1,6 +1,6 @@
 # Lab quickstart script
 # Usage:
-#   - Pre-requisite: Ensure that you have executed "source setup.sh"
+#   - Ensure that you have executed "source setup.sh" before running this script
 #   - Log into the AWS Console with your UDF cloud account
 #   - Execute: source quickstart.sh
 #   - The AWS Marketplace will automatically open in a new browser window. Subscribe to the AMI and wait for completion.
