@@ -6,8 +6,10 @@ resource "aws_eip" "vip1" {
   associate_with_private_ip = var.bigip_netcfg["bigip1"]["app_vips"][0]
 
   tags = {
+    Name                    = format("%s_vip1_eip", var.prefix)
+    Owner                   = var.emailid
     f5_cloud_failover_label = "example01"
-    VIPS                    = "${var.bigip_netcfg["bigip1"]["app_vips"][0]},${var.bigip_netcfg["bigip2"]["app_vips"][0]}"
+    VIPS                    = format("%s,%s", var.bigip_netcfg["bigip1"]["app_vips"][0], var.bigip_netcfg["bigip2"]["app_vips"][0])
   }
 }
 

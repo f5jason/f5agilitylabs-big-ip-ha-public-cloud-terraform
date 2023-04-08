@@ -11,7 +11,7 @@ resource "aws_nat_gateway" "hub_ngw" {
   subnet_id     = aws_subnet.hub_bigip1_mgmt.id
 
   tags = {
-    Name  = "${var.prefix}-hub-vpc-ngw"
+    Name  = format("%s_hub_ngw", var.prefix)
     Owner = var.emailid
   }
 }

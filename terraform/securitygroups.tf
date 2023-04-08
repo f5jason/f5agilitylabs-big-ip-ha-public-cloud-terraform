@@ -2,14 +2,14 @@
 
 # BIG-IP management subnets ACL
 resource "aws_security_group" "f5_mgmt" {
-  name   = "f5_mgmt"
+  name   = format("%s_f5_mgmt_sg", var.prefix)
   vpc_id = aws_vpc.hub-vpc.id
 
   ingress {
     from_port   = 0
     to_port     = 0
     protocol    = "-1"
-    cidr_blocks = ["${data.http.myip.response_body}/32"]
+    cidr_blocks = [format("%s/32", data.http.myip.response_body)]
   }
 
   ingress {
@@ -24,19 +24,24 @@ resource "aws_security_group" "f5_mgmt" {
     to_port     = 0
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name  = format("%s_f5_mgmt_sg", var.prefix)
+    Owner = var.emailid
   }
 }
 
 # BIG-IP external subnets ACL
 resource "aws_security_group" "f5_external" {
-  name   = "f5_external"
+  name   = format("%s_f5_external_sg", var.prefix)
   vpc_id = aws_vpc.hub-vpc.id
 
   ingress {
     from_port   = 0
     to_port     = 0
     protocol    = "-1"
-    cidr_blocks = ["${data.http.myip.response_body}/32"]
+    cidr_blocks = [format("%s/32", data.http.myip.response_body)]
   }
 
   ingress {
@@ -52,11 +57,16 @@ resource "aws_security_group" "f5_external" {
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
+
+  tags = {
+    Name  = format("%s_f5_external_sg", var.prefix)
+    Owner = var.emailid
+  }
 }
 
 # BIG-IP internal subnets ACL
 resource "aws_security_group" "f5_internal" {
-  name   = "f5_internal"
+  name   = format("%s_f5_internal_sg", var.prefix)
   vpc_id = aws_vpc.hub-vpc.id
 
   ingress {
@@ -72,12 +82,17 @@ resource "aws_security_group" "f5_internal" {
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
+
+  tags = {
+    Name  = format("%s_f5_internal_sg", var.prefix)
+    Owner = var.emailid
+  }
 }
 
 
 # App server access
 resource "aws_security_group" "appservers" {
-  name   = "appserver_sg"
+  name   = format("%s_appsvr_sg", var.prefix)
   vpc_id = aws_vpc.app-vpc.id
 
   ingress {
@@ -115,5 +130,9 @@ resource "aws_security_group" "appservers" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
+  tags = {
+    Name  = format("%s_f5_appsvr_sg", var.prefix)
+    Owner = var.emailid
+  }
 }
 

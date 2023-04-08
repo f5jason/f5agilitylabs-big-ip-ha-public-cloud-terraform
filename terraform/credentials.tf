@@ -25,6 +25,11 @@ resource "tls_private_key" "generated_key" {
 resource "aws_key_pair" "generated_key" {
   key_name   = var.aws_keypair_name
   public_key = tls_private_key.generated_key.public_key_openssh
+
+  tags = {
+    Name  = format("%s_aws_keypair", var.prefix)
+    Owner = var.emailid
+  }
 }
 
 resource "local_file" "private_key" {

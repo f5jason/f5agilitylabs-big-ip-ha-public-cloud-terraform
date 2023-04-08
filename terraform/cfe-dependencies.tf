@@ -3,13 +3,17 @@
 # S3 Bucket for F5 Cloud Failover Extension
 resource "aws_s3_bucket" "f5_cloud_failover_extension" {
   bucket = "f5-cloud-failover-ext-${uuid()}"
-  tags = {
-    f5_cloud_failover_label = "mydeployment"
-  }
+
   lifecycle {
     ignore_changes = [
       bucket
     ]
+  }
+
+  tags = {
+    Name                    = format("%s_cfe_s3_bucket", var.prefix)
+    Owner                   = var.emailid
+    f5_cloud_failover_label = "mydeployment"
   }
 }
 
@@ -50,7 +54,6 @@ resource "aws_iam_policy" "sts_assume_role" {
         }
     ]
 }
-
 EOF
 }
 
@@ -69,7 +72,6 @@ resource "aws_iam_policy" "ec2_all" {
         }
     ]
 }
-
 EOF
 }
 
@@ -88,7 +90,6 @@ resource "aws_iam_policy" "s3_all" {
         }
     ]
 }
-
 EOF
 }
 
