@@ -75,7 +75,7 @@ resource "aws_instance" "bigip2" {
   user_data_replace_on_change = true
 
   tags = {
-    Name     = var.bigip_netcfg["bigip2"]["tag"]
+    Name     = format("%s_%s", var.prefix, var.bigip_netcfg["bigip2"]["tag"])
     hostname = var.bigip_netcfg["bigip2"]["hostname"]
     Owner    = var.emailid
   }
@@ -89,7 +89,7 @@ resource "aws_network_interface" "bigip2_mgmt" {
   security_groups = [aws_security_group.f5_mgmt.id]
 
   tags = {
-    Name  = "${var.prefix}_bigip2_mgmt"
+    Name  = format("%s_bigip2_mgmt", var.prefix)
     Owner = var.emailid
   }
 
@@ -104,10 +104,10 @@ resource "aws_network_interface" "bigip2_external" {
 
   # Cloud Failover Extension Tags
   tags = {
-    Name                    = "${var.prefix}_bigip2_external"
-    Owner                   = var.emailid
-    f5_cloud_failover_label = "mydeployment"
-    #f5_cloud_failover_nics  = "external"
+    Name                      = format("%s_bigip2_external", var.prefix)
+    Owner                     = var.emailid
+    f5_cloud_failover_label   = "mydeployment"
+    f5_cloud_failover_nic_map = "external"
   }
 }
 
@@ -119,7 +119,7 @@ resource "aws_network_interface" "bigip2_internal" {
   security_groups   = [aws_security_group.f5_internal.id]
 
   tags = {
-    Name  = "${var.prefix}_bigip2_internal"
+    Name  = format("%s_bigip2_internal", var.prefix)
     Owner = var.emailid
   }
 
