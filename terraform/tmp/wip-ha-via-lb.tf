@@ -15,17 +15,18 @@ resource "aws_lb" "bigip_ha" {
   enable_cross_zone_load_balancing = true
 
   subnet_mapping {
-    subnet_id     = aws_subnet.hub_bigip1_external.id
+    subnet_id = aws_subnet.hub_bigip1_external.id
     #allocation_id = ???
   }
 
   subnet_mapping {
-    subnet_id     = aws_subnet.hub_bigip1_external.id
+    subnet_id = aws_subnet.hub_bigip1_external.id
     #allocation_id = ???
   }
 
   tags = {
-    Name = "${var.prefix}_ha_lb"
+    Name  = format("%s_bigip_ha_lb", var.prefix)
+    Owner = emailid
   }
 }
 
@@ -73,21 +74,21 @@ resource "aws_lb_target_group_attachment" "bigip2_ha" {
 
 
 resource "aws_security_group" "bigip_ha_lb" {
-  name   = "${var.prefix}_bigip_ha_lb_sg"
+  name   = format("%s_bigip_ha_lb_sg", var.prefix)
   vpc_id = aws_vpc.hub-vpc.id
 
   ingress {
     from_port   = 80
     to_port     = 80
     protocol    = "tcp"
-    cidr_blocks = ["${data.http.myip.response_body}/32"]
+    cidr_blocks = [format("%s/32", data.http.myip.response_body)]
   }
 
   ingress {
     from_port   = 443
     to_port     = 443
     protocol    = "tcp"
-    cidr_blocks = ["${data.http.myip.response_body}/32"]
+    cidr_blocks = [format("%s/32", data.http.myip.response_body)]
   }
 
   egress {
@@ -95,6 +96,11 @@ resource "aws_security_group" "bigip_ha_lb" {
     to_port     = 0
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
+
+  }
+  tags = {
+    Name  = format("%s_bigip_ha_lb_sg", var.prefix)
+    Owner = emailid
   }
 }
 

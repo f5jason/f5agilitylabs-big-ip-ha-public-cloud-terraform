@@ -24,9 +24,11 @@ resource "aws_instance" "appsvr2" {
               EOF
 
   tags = {
-    Name   = "appsvr2"
+    Name   = format("%s_appsvr2_etho", var.prefix)
+    Owner  = var.emailid
     findme = "web"
   }
+
 }
 
 

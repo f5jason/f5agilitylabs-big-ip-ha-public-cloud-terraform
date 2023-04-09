@@ -6,7 +6,7 @@ resource "aws_vpc" "hub-vpc" {
   enable_dns_hostnames = "true"
 
   tags = {
-    Name  = "${var.prefix}-hub-vpc"
+    Name  = format("%s_hub_vpc", var.prefix)
     Owner = var.emailid
   }
 }
@@ -16,10 +16,10 @@ resource "aws_subnet" "hub_bigip1_mgmt" {
   vpc_id                  = aws_vpc.hub-vpc.id
   cidr_block              = var.vpc_cidrs["hub"]["bigip1_mgmt"]
   map_public_ip_on_launch = "true"
-  availability_zone       = "${var.aws_region}a"
+  availability_zone       = format("%sa", var.aws_region)
 
   tags = {
-    Name  = "hub_bigip1_mgmt"
+    Name  = format("%s_hub_bigip1_mgmt", var.prefix)
     Owner = var.emailid
   }
 }
@@ -28,10 +28,10 @@ resource "aws_subnet" "hub_bigip1_external" {
   vpc_id                  = aws_vpc.hub-vpc.id
   cidr_block              = var.vpc_cidrs["hub"]["bigip1_external"]
   map_public_ip_on_launch = "false"
-  availability_zone       = "${var.aws_region}a"
+  availability_zone       = format("%sa", var.aws_region)
 
   tags = {
-    Name  = "hub_bigip1_external"
+    Name  = format("%s_hub_bigip1_external", var.prefix)
     Owner = var.emailid
   }
 }
@@ -40,10 +40,10 @@ resource "aws_subnet" "hub_bigip1_internal" {
   vpc_id                  = aws_vpc.hub-vpc.id
   cidr_block              = var.vpc_cidrs["hub"]["bigip1_internal"]
   map_public_ip_on_launch = "false"
-  availability_zone       = "${var.aws_region}a"
+  availability_zone       = format("%sa", var.aws_region)
 
   tags = {
-    Name  = "hub_bigip1_internal"
+    Name  = format("%s_hub_bigip1_internal", var.prefix)
     Owner = var.emailid
   }
 }
@@ -53,10 +53,10 @@ resource "aws_subnet" "hub_bigip2_mgmt" {
   vpc_id                  = aws_vpc.hub-vpc.id
   cidr_block              = var.vpc_cidrs["hub"]["bigip2_mgmt"]
   map_public_ip_on_launch = "true"
-  availability_zone       = "${var.aws_region}b"
+  availability_zone       = format("%sb", var.aws_region)
 
   tags = {
-    Name  = "hub_bigip2_mgmt"
+    Name  = format("%s_hub_bigip2_mgmt", var.prefix)
     Owner = var.emailid
   }
 }
@@ -65,10 +65,10 @@ resource "aws_subnet" "hub_bigip2_external" {
   vpc_id                  = aws_vpc.hub-vpc.id
   cidr_block              = var.vpc_cidrs["hub"]["bigip2_external"]
   map_public_ip_on_launch = "false"
-  availability_zone       = "${var.aws_region}b"
+  availability_zone       = format("%sb", var.aws_region)
 
   tags = {
-    Name  = "hub_bigip2_external"
+    Name  = format("%s_hub_bigip2_external", var.prefix)
     Owner = var.emailid
   }
 }
@@ -77,10 +77,10 @@ resource "aws_subnet" "hub_bigip2_internal" {
   vpc_id                  = aws_vpc.hub-vpc.id
   cidr_block              = var.vpc_cidrs["hub"]["bigip2_internal"]
   map_public_ip_on_launch = "false"
-  availability_zone       = "${var.aws_region}b"
+  availability_zone       = format("%sb", var.aws_region)
 
   tags = {
-    Name  = "hub_bigip2_internal"
+    Name  = format("%s_hub_bigip2_internal", var.prefix)
     Owner = var.emailid
   }
 }
@@ -100,8 +100,8 @@ resource "aws_route_table" "hub_default" {
   }
 
   tags = {
-    Name                    = "hub-default"
-    Owner                   = "${var.emailid}"
+    Name                    = format("%s_hub_default_rt", var.prefix)
+    Owner                   = var.emailid
     f5_cloud_failover_label = "mydeployment"
   }
 }
@@ -124,6 +124,11 @@ resource "aws_route_table" "hub_internal_ngw" {
   route {
     cidr_block         = "10.1.0.0/16"
     transit_gateway_id = aws_ec2_transit_gateway.tgw.id
+  }
+
+  tags = {
+    Name  = format("%s_hub_ngw_tgw_rt", var.prefix)
+    Owner = var.emailid
   }
 }
 

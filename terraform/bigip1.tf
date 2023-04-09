@@ -75,7 +75,7 @@ resource "aws_instance" "bigip1" {
   user_data_replace_on_change = true
 
   tags = {
-    Name     = var.bigip_netcfg["bigip1"]["tag"]
+    Name     = format("%s_%s", var.prefix, var.bigip_netcfg["bigip1"]["tag"])
     hostname = var.bigip_netcfg["bigip1"]["hostname"]
     Owner    = var.emailid
   }
@@ -87,6 +87,12 @@ resource "aws_network_interface" "bigip1_mgmt" {
   subnet_id       = aws_subnet.hub_bigip1_mgmt.id
   private_ips     = [split("/", var.bigip_netcfg["bigip1"]["mgmt"])[0]]
   security_groups = [aws_security_group.f5_mgmt.id]
+
+  tags = {
+    Name  = format("%s_bigip1_mgmt", var.prefix)
+    Owner = var.emailid
+  }
+
 }
 
 resource "aws_network_interface" "bigip1_external" {
@@ -98,8 +104,10 @@ resource "aws_network_interface" "bigip1_external" {
 
   # Cloud Failover Extension Tags
   tags = {
-    f5_cloud_failover_label = "mydeployment"
-    #f5_cloud_failover_nics  = "external"
+    Name                      = format("%s_bigip1_external", var.prefix)
+    Owner                     = var.emailid
+    f5_cloud_failover_label   = "mydeployment"
+    f5_cloud_failover_nic_map = "external"
   }
 }
 
@@ -109,12 +117,23 @@ resource "aws_network_interface" "bigip1_internal" {
   private_ips       = [split("/", var.bigip_netcfg["bigip1"]["internal"])[0]]
   source_dest_check = "false"
   security_groups   = [aws_security_group.f5_internal.id]
+
+  tags = {
+    Name  = format("%s_bigip1_internal", var.prefix)
+    Owner = var.emailid
+  }
+
 }
 
 # Public IP Address for management IP (jumphost inbound access)
 resource "aws_eip" "bigip1_mgmt" {
   vpc               = true
   network_interface = aws_network_interface.bigip1_mgmt.id
+
+  tags = {
+    Name  = format("%s_bigip1_mgmt_eip", var.prefix)
+    Owner = var.emailid
+  }
 }
 
 

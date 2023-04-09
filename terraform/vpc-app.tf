@@ -6,7 +6,7 @@ resource "aws_vpc" "app-vpc" {
   enable_dns_hostnames = "true"
 
   tags = {
-    Name  = "${var.prefix}-app-vpc"
+    Name  = format("%s_app_vpc", var.prefix)
     Owner = var.emailid
   }
 }
@@ -16,10 +16,10 @@ resource "aws_subnet" "appsvr1" {
   vpc_id                  = aws_vpc.app-vpc.id
   cidr_block              = var.vpc_cidrs["app"]["appsvr1"]
   map_public_ip_on_launch = "false"
-  availability_zone       = "${var.aws_region}a"
+  availability_zone       = format("%sa", var.aws_region)
 
   tags = {
-    Name  = "${var.prefix}-app-az1"
+    Name  = format("%s_app_az1_subnet", var.prefix)
     Owner = var.emailid
   }
 }
@@ -29,10 +29,10 @@ resource "aws_subnet" "appsvr2" {
   vpc_id                  = aws_vpc.app-vpc.id
   cidr_block              = var.vpc_cidrs["app"]["appsvr2"]
   map_public_ip_on_launch = "false"
-  availability_zone       = "${var.aws_region}b"
+  availability_zone       = format("%sb", var.aws_region)
 
   tags = {
-    Name  = "${var.prefix}-app-az2"
+    Name  = format("%s_app_az2_subnet", var.prefix)
     Owner = var.emailid
   }
 }
@@ -45,10 +45,13 @@ resource "aws_route_table" "app_default_tgw" {
     cidr_block         = "0.0.0.0/0"
     transit_gateway_id = aws_ec2_transit_gateway.tgw.id
   }
+
   tags = {
-    Name  = "${var.prefix}-app-default-tgw-rt"
+    Name  = format("%s_app_default_tgw_rt", var.prefix)
     Owner = var.emailid
   }
+
+
 }
 
 resource "aws_main_route_table_association" "app" {

@@ -24,11 +24,11 @@ resource "aws_instance" "appsvr1" {
               EOF
 
   tags = {
-    Name   = "appsvr1"
+    Name   = format("%s_appsvr1_etho", var.prefix)
+    Owner  = var.emailid
     findme = "web"
   }
 }
-
 
 output "appsvr1_private_address" {
   value = aws_instance.appsvr1.private_ip
