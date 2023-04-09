@@ -129,6 +129,11 @@ resource "aws_network_interface" "bigip1_internal" {
 resource "aws_eip" "bigip1_mgmt" {
   vpc               = true
   network_interface = aws_network_interface.bigip1_mgmt.id
+
+  tags = {
+    Name  = format("%s_bigip1_mgmt_eip", var.prefix)
+    Owner = var.emailid
+  }
 }
 
 
