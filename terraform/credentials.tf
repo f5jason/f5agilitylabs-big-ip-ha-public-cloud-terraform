@@ -8,10 +8,6 @@ resource "random_string" "password" {
   special     = false
 }
 
-locals {
-  random_password = random_string.password.result
-}
-
 output "random_password" {
   value = random_string.password.result
 }

@@ -14,12 +14,16 @@
 				"pool1": {
 					"members": [
 						{
-							"addressDiscovery": "static",
-                            "servicePort": 80,
-							"serverAddresses": [
-								"10.1.200.80",
-								"10.1.201.80"
-							]
+							"servicePort": 80,
+							"addressDiscovery": "aws",
+							"region": "us-west-2",
+							"updateInterval": 20,
+							"tagKey": "findme",
+							"tagValue": "web",
+							"addressRealm": "private",
+							"adminState": "enable",
+							"autoPopulate": true,
+							"enable": true
 						}
 					],
 					"monitors": [
@@ -82,7 +86,10 @@
 						}
 					],
 					"virtualPort": 443,
-					"snat": "auto"
+					"snat": "auto",
+					"profileHTTP2": {
+						"bigip": "/Example01/Shared/http2_example01"
+					}
 				},
 				"example01a_service_address": {
 					"class": "Service_Address",
@@ -116,7 +123,10 @@
 						}
 					],
 					"virtualPort": 443,
-					"snat": "auto"
+					"snat": "auto",
+					"profileHTTP2": {
+						"bigip": "/Example01/Shared/http2_example01"
+					}
 				},
 				"example01b_service_address": {
 					"class": "Service_Address",
