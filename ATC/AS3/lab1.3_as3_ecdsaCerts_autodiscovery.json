@@ -14,13 +14,16 @@
 				"pool1": {
 					"members": [
 						{
-							"addressDiscovery": "static",
-                            "servicePort": 80,
-							"serverAddresses": [
-								"10.1.200.80",
-								"10.1.201.80"
-							],
-                            "shareNodes": true
+							"servicePort": 80,
+							"addressDiscovery": "aws",
+							"region": "us-west-2",
+							"updateInterval": 20,
+							"tagKey": "findme",
+							"tagValue": "web",
+							"addressRealm": "private",
+							"adminState": "enable",
+							"autoPopulate": true,
+							"enable": true
 						}
 					],
 					"monitors": [
@@ -46,15 +49,35 @@
 						"bigip": "/Common/default.key"
 					}
 				},
-				"clientssl_secure_example01": {
+				"clientssl_secure_example01a": {
 					"certificates": [
 						{
-							"certificate": "certificate_default"
+							"certificate": "webcert1a"
 						}
 					],
-					"ciphers": "none",
 					"renegotiationEnabled": false,
 					"class": "TLS_Server"
+				},
+				"webcert1a": {
+					"class": "Certificate",
+					"remark": "in practice we recommend using a passphrase",
+					"certificate": "{Student inserts cert text}",
+					"privateKey": "{Student inserts key text}"
+				},
+				"clientssl_secure_example01b": {
+					"certificates": [
+						{
+							"certificate": "webcert1b"
+						}
+					],
+					"renegotiationEnabled": false,
+					"class": "TLS_Server"
+				},
+				"webcert1b": {
+					"class": "Certificate",
+					"remark": "in practice we recommend using a passphrase",
+					"certificate": "{Student inserts cert text}",
+					"privateKey": "{Student inserts key text}"
 				},
 				"http2_example01": {
 					"class": "HTTP2_Profile",
@@ -76,7 +99,7 @@
 					"profileTCP": {
 						"bigip": "/Common/tcp"
 					},
-					"serverTLS": "clientssl_secure_example01",
+					"serverTLS": "clientssl_secure_example01a",
 					"virtualAddresses": [
 						{
 							"use": "example01a_service_address"
@@ -113,7 +136,7 @@
 					"profileTCP": {
 						"bigip": "/Common/tcp"
 					},
-					"serverTLS": "clientssl_secure_example01",
+					"serverTLS": "clientssl_secure_example01b",
 					"virtualAddresses": [
 						{
 							"use": "example01b_service_address"
