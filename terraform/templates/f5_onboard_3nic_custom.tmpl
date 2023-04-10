@@ -85,6 +85,12 @@ runtime_parameters:
       type: network
       field: subnet-ipv4-cidr-block
       index: 2
+  - name: CLUSTER_PRIMARY
+    type: static
+    value: ${cluster_primary_ip}
+  - name: CLUSTER_SECONDARY
+    type: static
+    value: ${cluster_secondary_ip}
   - name: APP_ROUTE
     type: static
     value: ${app_route}
@@ -177,15 +183,15 @@ extension_services:
             tag: 4094
             mtu: 1500
             interfaces:
-            - name: '1.1'
-              tagged: false
+              - name: '1.1'
+                tagged: false
           internal:
             class: VLAN
             tag: 4093
             mtu: 1500
             interfaces:
-            - name: '1.2'
-              tagged: false
+              - name: '1.2'
+                tagged: false
           external-self:
             class: SelfIp
             address: '{{{SELF_IP_EXTERNAL}}}'
@@ -208,7 +214,14 @@ extension_services:
             network: '{{{APP_ROUTE}}}'
             gw: '{{{TRANSIT_GW}}}'
             localOnly: true
-          configsync:
+          deviceTrust:
+            class: DeviceTrust
+            localUsername: '{{{USER_NAME}}}'
+            localPassword: '{{{ADMIN_PASS}}}'
+            remoteHost: "/Common/failoverGroup/members/{{{REMOTE_INDEX}}}"
+            remoteUsername: '{{{USER_NAME}}}'
+            remotePassword: '{{{ADMIN_PASS}}}'
+          configSync:
             class: ConfigSync
             configsyncIp: "/Common/external-self/address"
           failoverAddress:
@@ -218,20 +231,19 @@ extension_services:
             class: DeviceGroup
             type: sync-failover
             members:
-            - 10.0.101.11
-            - 10.0.102.11
+              - '{{{CLUSTER_PRIMARY}}}'
+              - '{{{CLUSTER_SECONDARY}}}'
             owner: "/Common/failoverGroup/members/0"
             autoSync: true
             saveOnAutoSync: false
             networkFailover: true
             fullLoadOnSync: false
-          trust:
-            class: DeviceTrust
-            localUsername: '{{{USER_NAME}}}'
-            localPassword: '{{{ADMIN_PASS}}}'
-            remoteHost: "/Common/failoverGroup/members/{{{REMOTE_INDEX}}}"
-            remoteUsername: '{{{USER_NAME}}}'
-            remotePassword: '{{{ADMIN_PASS}}}'
+          traffic-group-1:
+            class: TrafficGroup
+            autoFailbackEnabled: false
+            haOrder:
+              - '{{{CLUSTER_PRIMARY}}}'
+              - '{{{CLUSTER_SECONDARY}}}'
 post_onboard_enabled: []
 EOF
 

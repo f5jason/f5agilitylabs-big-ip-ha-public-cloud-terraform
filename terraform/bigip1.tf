@@ -12,13 +12,29 @@ data "template_file" "bigip1_onboard" {
     bigip_username = var.bigip_admin
     bigip_password = local.random_password
 
-    # remote_index for DeviceTrust: "1" in bigip1 template/ "0" in bigip2 template
+    # Device Group
+    cluster_primary   = [split("/", var.bigip_netcfg["bigip1"]["mgmt"])[0]]
+    cluster_secondary = [split("/", var.bigip_netcfg["bigip2"]["mgmt"])[0]]
+
+    # Device Trust
+    # - Remote host index: "1" in bigip1 template/ "0" in bigip2 template
     remote_index = "1"
+
+    # Self IPs
+    # - External self IP - Retrieved from AWS metadata service by F5 Runtime Init
+    # - Internal self IP - Retrieved from AWS metadata service by F5 Runtime Init
+
+    # Default Route
+    # - Default gateway on external subnet - Retrieved from AWS metadata service by F5 Runtime Init
+
+    # Static Route(s)
+    app_route = var.vpc_cidrs["app"]["vpc"]
+    # - Next hop gateway to app servers via internal subnet+AWS transit gateway - Retrieved from AWS metadata service by F5 Runtime Init
 
     # BIG-IP Runtime Init package URL
     INIT_URL = var.INIT_URL
 
-    # F5 ATC package URLs
+    # F5 ATC package URLs and Versions
     DO_URL   = var.DO_URL
     DO_VER   = var.DO_VER
     AS3_URL  = var.AS3_URL
@@ -29,18 +45,6 @@ data "template_file" "bigip1_onboard" {
     CFE_VER  = var.CFE_VER
     FAST_URL = var.FAST_URL
     FAST_VER = var.FAST_VER
-
-    # Self IPs    
-    # External self IP - Retrieved from AWS metadata service by F5 Runtime Init
-    # Internal self IP - Retrieved from AWS metadata service by F5 Runtime Init
-
-    # Default Route
-    # Default gateway on external subnet - Retrieved from AWS metadata service by F5 Runtime Init
-
-    # Static Route(s)
-    app_route = var.vpc_cidrs["app"]["vpc"]
-    # Next hop gateway to app servers via internal subnet+AWS transit gateway - Retrieved from AWS metadata service by F5 Runtime Init
-
   }
 }
 

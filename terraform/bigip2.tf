@@ -8,9 +8,11 @@
 data "template_file" "bigip2_onboard" {
   template = file("${path.module}/templates/f5_onboard_3nic_custom.tmpl")
   vars = {
-    bigip_hostname = var.bigip_netcfg["bigip2"]["hostname"]
-    bigip_username = var.bigip_admin
-    bigip_password = local.random_password
+    bigip_hostname    = var.bigip_netcfg["bigip2"]["hostname"]
+    primary_mgmt_ip   = [split("/", var.bigip_netcfg["bigip1"]["mgmt"])[0]]
+    secondary_mgmt_ip = [split("/", var.bigip_netcfg["bigip2"]["mgmt"])[0]]
+    bigip_username    = var.bigip_admin
+    bigip_password    = local.random_password
 
     # remote_index for DeviceTrust: "1" in bigip1 template/ "0" in bigip2 template
     remote_index = "0"
