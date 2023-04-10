@@ -12,6 +12,9 @@ data "template_file" "bigip2_onboard" {
     bigip_username = var.bigip_admin
     bigip_password = local.random_password
 
+    # remote_index for DeviceTrust: "1" in bigip1 template/ "0" in bigip2 template
+    remote_index = "0"
+
     # BIG-IP Runtime Init package URL
     INIT_URL = var.INIT_URL
 

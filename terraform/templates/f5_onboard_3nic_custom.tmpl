@@ -91,6 +91,9 @@ runtime_parameters:
   - name: UI_BANNER
     type: static
     value: ${bigip_hostname}
+  - name: REMOTE_INDEX
+    type: static
+    value: "${remote_index}"
   - name: USER_NAME
     type: static
     value: ${bigip_username}
@@ -199,18 +202,18 @@ extension_services:
             class: Route
             network: default
             gw: '{{{DEFAULT_GW}}}'
-            mtu: 1500
+            localOnly: true
           app-route:
             class: Route
             network: '{{{APP_ROUTE}}}'
             gw: '{{{TRANSIT_GW}}}'
-            mtu: 1500
+            localOnly: true
           configsync:
             class: ConfigSync
-            configsyncIp: "/Common/internal-self/address"
+            configsyncIp: "/Common/external-self/address"
           failoverAddress:
             class: FailoverUnicast
-            address: "/Common/internal-self/address"
+            address: "/Common/external-self/address"
           failoverGroup:
             class: DeviceGroup
             type: sync-failover
@@ -226,7 +229,7 @@ extension_services:
             class: DeviceTrust
             localUsername: '{{{USER_NAME}}}'
             localPassword: '{{{ADMIN_PASS}}}'
-            remoteHost: "/Common/failoverGroup/members/0"
+            remoteHost: "/Common/failoverGroup/members/{{{REMOTE_INDEX}}}"
             remoteUsername: '{{{USER_NAME}}}'
             remotePassword: '{{{ADMIN_PASS}}}'
 post_onboard_enabled: []
