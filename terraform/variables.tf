@@ -104,7 +104,7 @@ variable "bigip_netcfg" {
     bigip1 = {
       az                 = "1"
       hostname           = "bigip1.f5lab.dev"
-      tag                = "bigip1-az1-3nic-payg"
+      tag                = "bigip1_3nic"
       mgmt               = "10.0.10.11/24"
       internal           = "10.0.11.11/24"
       external           = "10.0.12.11/24"
@@ -114,7 +114,7 @@ variable "bigip_netcfg" {
     bigip2 = {
       az                 = "2"
       hostname           = "bigip2.f5lab.dev"
-      tag                = "bigip2-az2-3nic-payg"
+      tag                = "bigip2_3nic"
       mgmt               = "10.0.20.11/24"
       internal           = "10.0.21.11/24"
       external           = "10.0.22.11/24"
