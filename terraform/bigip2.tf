@@ -13,12 +13,9 @@ data "template_file" "bigip2_onboard" {
     bigip_password = local.random_password
 
     # Device Group
-    cluster_primary   = [split("/", var.bigip_netcfg["bigip1"]["mgmt"])[0]]
-    cluster_secondary = [split("/", var.bigip_netcfg["bigip2"]["mgmt"])[0]]
-
-    # Device Trust
-    # - Remote host index: "1" in bigip2 template/ "0" in bigip2 template
-    remote_index = "1"
+    cluster_primary_ip   = local.cluster_primary_ip
+    cluster_secondary_ip = local.cluster_secondary_ip
+    remote_index         = local.bigip2_remote_index
 
     # Self IPs
     # - External self IP - Retrieved from AWS metadata service by F5 Runtime Init
