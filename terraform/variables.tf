@@ -194,11 +194,3 @@ variable "FAST_VER" {
   type    = string
   default = "1.24.0"
 }
-
-# AWS variables for Postman environment template 
-# (TF_VARS_AWS_* exported by jump host startup script to set their values)
-variable "AWS_SECRET_ACCESS_KEY" {}
-variable "AWS_ACCESS_KEY_ID" {}
-variable "AWS_CONSOLE_LINK" {}
-variable "AWS_USER" {}
-variable "AWS_PASSWORD" {}
