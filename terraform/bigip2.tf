@@ -12,6 +12,9 @@ data "template_file" "bigip2_onboard" {
     bigip_username = var.bigip_admin
     bigip_password = local.random_password
 
+    # remote_index for DeviceTrust: "1" in bigip1 template/ "0" in bigip2 template
+    remote_index = "0"
+
     # BIG-IP Runtime Init package URL
     INIT_URL = var.INIT_URL
 
@@ -96,11 +99,12 @@ resource "aws_network_interface" "bigip2_mgmt" {
 }
 
 resource "aws_network_interface" "bigip2_external" {
-  description       = "NIC for BIG-IP external interface"
-  subnet_id         = aws_subnet.hub_bigip2_external.id
-  private_ips       = flatten([split("/", var.bigip_netcfg["bigip2"]["external"])[0], split("/", var.bigip_netcfg["bigip2"]["external_secondary"])[0], var.bigip_netcfg["bigip2"]["app_vips"]])
-  source_dest_check = "false"
-  security_groups   = [aws_security_group.f5_external.id]
+  description             = "NIC for BIG-IP external interface"
+  subnet_id               = aws_subnet.hub_bigip2_external.id
+  private_ip_list_enabled = true
+  private_ip_list         = flatten([split("/", var.bigip_netcfg["bigip2"]["external"])[0], split("/", var.bigip_netcfg["bigip2"]["external_secondary"])[0], var.bigip_netcfg["bigip2"]["app_vips"]])
+  source_dest_check       = "false"
+  security_groups         = [aws_security_group.f5_external.id]
 
   # Cloud Failover Extension Tags
   tags = {

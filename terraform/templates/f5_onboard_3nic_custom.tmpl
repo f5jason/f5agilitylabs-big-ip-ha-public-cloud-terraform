@@ -91,6 +91,9 @@ runtime_parameters:
   - name: UI_BANNER
     type: static
     value: ${bigip_hostname}
+  - name: REMOTE_INDEX
+    type: static
+    value: "${remote_index}"
   - name: USER_NAME
     type: static
     value: ${bigip_username}
@@ -139,6 +142,8 @@ extension_services:
           My_DbVariables:
             class: DbVariables
             provision.extramb: 1000
+            ui.advisory.enabled: true
+            ui.advisory.color: green
             ui.advisory.text: '{{{UI_BANNER}}}'
           myDns:
             class: DNS
@@ -168,12 +173,12 @@ extension_services:
               - '{{{SSH_KEYS}}}'
             userType: regular
           external:
-              class: VLAN
-              tag: 4094
-              mtu: 1500
-              interfaces:
-              - name: '1.1'
-                tagged: false
+            class: VLAN
+            tag: 4094
+            mtu: 1500
+            interfaces:
+            - name: '1.1'
+              tagged: false
           internal:
             class: VLAN
             tag: 4093
@@ -197,13 +202,36 @@ extension_services:
             class: Route
             network: default
             gw: '{{{DEFAULT_GW}}}'
-            mtu: 1500
+            localOnly: true
           app-route:
             class: Route
             network: '{{{APP_ROUTE}}}'
             gw: '{{{TRANSIT_GW}}}'
-            mtu: 1500
-
+            localOnly: true
+          configsync:
+            class: ConfigSync
+            configsyncIp: "/Common/external-self/address"
+          failoverAddress:
+            class: FailoverUnicast
+            address: "/Common/external-self/address"
+          failoverGroup:
+            class: DeviceGroup
+            type: sync-failover
+            members:
+            - 10.0.101.11
+            - 10.0.102.11
+            owner: "/Common/failoverGroup/members/0"
+            autoSync: true
+            saveOnAutoSync: false
+            networkFailover: true
+            fullLoadOnSync: false
+          trust:
+            class: DeviceTrust
+            localUsername: '{{{USER_NAME}}}'
+            localPassword: '{{{ADMIN_PASS}}}'
+            remoteHost: "/Common/failoverGroup/members/{{{REMOTE_INDEX}}}"
+            remoteUsername: '{{{USER_NAME}}}'
+            remotePassword: '{{{ADMIN_PASS}}}'
 post_onboard_enabled: []
 EOF
 
