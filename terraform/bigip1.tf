@@ -96,11 +96,12 @@ resource "aws_network_interface" "bigip1_mgmt" {
 }
 
 resource "aws_network_interface" "bigip1_external" {
-  description       = "NIC for BIG-IP external interface"
-  subnet_id         = aws_subnet.hub_bigip1_external.id
-  private_ips       = flatten([split("/", var.bigip_netcfg["bigip1"]["external"])[0], split("/", var.bigip_netcfg["bigip1"]["external_secondary"])[0], var.bigip_netcfg["bigip1"]["app_vips"]])
-  source_dest_check = "false"
-  security_groups   = [aws_security_group.f5_external.id]
+  description             = "NIC for BIG-IP external interface"
+  subnet_id               = aws_subnet.hub_bigip1_external.id
+  private_ip_list_enabled = true
+  private_ip_list         = flatten([split("/", var.bigip_netcfg["bigip1"]["external"])[0], split("/", var.bigip_netcfg["bigip1"]["external_secondary"])[0], var.bigip_netcfg["bigip1"]["app_vips"]])
+  source_dest_check       = "false"
+  security_groups         = [aws_security_group.f5_external.id]
 
   # Cloud Failover Extension Tags
   tags = {
