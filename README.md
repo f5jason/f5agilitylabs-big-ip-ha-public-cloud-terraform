@@ -16,11 +16,10 @@
 
 
 # Tested Versions
-- hashicorp/aws v4.61.0
+- hashicorp/aws v4.62.0
 - hashicorp/tls v4.0.4
 - hashicorp/random v3.4.3
 - hashicorp/http v3.2.1
 - hashicorp/null v3.2.1
-- hashicorp/time v0.9.1
 - hashicorp/template v2.2.0
 - hashicorp/local v1.4.0
