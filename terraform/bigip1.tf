@@ -13,8 +13,8 @@ data "template_file" "bigip1_onboard" {
     bigip_password = local.random_password
 
     # Device Group
-    cluster_primary   = [split("/", var.bigip_netcfg["bigip1"]["mgmt"])[0]]
-    cluster_secondary = [split("/", var.bigip_netcfg["bigip2"]["mgmt"])[0]]
+    cluster_primary   = split("/", var.bigip_netcfg["bigip1"]["mgmt"])[0]
+    cluster_secondary = split("/", var.bigip_netcfg["bigip2"]["mgmt"])[0]
 
     # Device Trust
     # - Remote host index: "1" in bigip1 template/ "0" in bigip2 template
