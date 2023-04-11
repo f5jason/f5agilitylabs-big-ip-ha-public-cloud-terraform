@@ -27,8 +27,6 @@
 							"tagKey": "findme",
 							"tagValue": "web",
 							"addressRealm": "private",
-                            "accessKeyId": "{{TF_VAR_AWS_ACCESS_KEY_ID}}",
-                            "secretAccessKey": "{{TF_VAR_AWS_SECRET_ACCESS_KEY}}",
                             "credentialUpdate": false
 						}
 					]
