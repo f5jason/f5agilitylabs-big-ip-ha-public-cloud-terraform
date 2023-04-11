@@ -77,13 +77,6 @@ runtime_parameters:
       environment: aws
       type: network
       field: subnet-ipv4-cidr-block
-      index: 1
-  - name: TRANSIT_GW
-    type: metadata
-    metadataProvider:
-      environment: aws
-      type: network
-      field: subnet-ipv4-cidr-block
       index: 2
   - name: CLUSTER_PRIMARY
     type: static
@@ -209,11 +202,6 @@ extension_services:
             network: default
             gw: '{{{DEFAULT_GW}}}'
             localOnly: true
-          app-route:
-            class: Route
-            network: '{{{APP_ROUTE}}}'
-            gw: '{{{TRANSIT_GW}}}'
-            localOnly: true
           deviceTrust:
             class: DeviceTrust
             localUsername: '{{{USER_NAME}}}'
@@ -223,10 +211,10 @@ extension_services:
             remotePassword: '{{{ADMIN_PASS}}}'
           configSync:
             class: ConfigSync
-            configsyncIp: "/Common/external-self/address"
+            configsyncIp: "/Common/internal-self/address"
           failoverAddress:
             class: FailoverUnicast
-            address: "/Common/external-self/address"
+            address: "/Common/internal-self/address"
           failoverGroup:
             class: DeviceGroup
             type: sync-failover
