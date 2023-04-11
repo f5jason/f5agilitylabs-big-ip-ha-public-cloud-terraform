@@ -71,6 +71,13 @@ runtime_parameters:
       type: network
       field: local-ipv4s
       index: 2
+  - name: MGMT_GW
+    type: metadata
+    metadataProvider:
+      environment: aws
+      type: network
+      field: subnet-ipv4-cidr-block
+      index: 0
   - name: DEFAULT_GW
     type: metadata
     metadataProvider:
@@ -155,6 +162,11 @@ extension_services:
             class: DNS
             nameServers:
               - 169.254.169.253
+          myManagementRoute:
+            class: ManagementRoute
+            network: 44.192.0.0/24
+            gw: '{{{MGMT_GW}}}'
+            type: interface
           myProvisioning:
             class: Provision
             ltm: nominal
