@@ -23,13 +23,13 @@
 							"servicePort": 80,
 							"addressDiscovery": "aws",
 							"region": "us-west-2",
-							"updateInterval": 20,
+							"updateInterval": 10,
 							"tagKey": "findme",
 							"tagValue": "web",
 							"addressRealm": "private",
-							"adminState": "enable",
-							"autoPopulate": true,
-							"enable": true
+                            "accessKeyId": "{{TF_VAR_AWS_ACCESS_KEY_ID}}",
+                            "secretAccessKey": "{{TF_VAR_AWS_SECRET_ACCESS_KEY}}",
+                            "credentialUpdate": false
 						}
 					]
 				}
