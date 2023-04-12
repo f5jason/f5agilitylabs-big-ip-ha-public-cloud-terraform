@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "dd7993d4-4125-4421-bcef-48ec5774fbb9",
+		"_postman_id": "4ac01792-a9f9-4f79-90db-9e3ce58c7b4e",
 		"name": "Agility Lab - BIG-IP HA in Public Cloud",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -9,7 +9,7 @@
 			"name": "Check F5 ATC Status",
 			"item": [
 				{
-					"name": "Step 1-A: bigip1 - DO - Get extension status",
+					"name": "DO-1-A [bigip1] Get extension status",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -63,7 +63,7 @@
 					"response": []
 				},
 				{
-					"name": "Step 1-B: bigip2 - DO - Get extension status",
+					"name": "DO-1-B [bigip2] Get extension status",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -117,7 +117,7 @@
 					"response": []
 				},
 				{
-					"name": "Step 2-A: bigip1 - DO - Get current config",
+					"name": "DO-2-A [bigip1] Get current config",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -171,7 +171,7 @@
 					"response": []
 				},
 				{
-					"name": "Step 2-B: bigip2 - DO - Get current config",
+					"name": "DO-2-B [bigip2] Get current config",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -223,119 +223,14 @@
 						}
 					},
 					"response": []
-				},
+				}
+			]
+		},
+		{
+			"name": "Config - Cloud Failover Extension",
+			"item": [
 				{
-					"name": "Step 3-A: bigip1 - AS3 - Get extension status",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"auth": {
-							"type": "basic",
-							"basic": [
-								{
-									"key": "password",
-									"value": "{{bigip_admin_password}}",
-									"type": "string"
-								},
-								{
-									"key": "username",
-									"value": "admin",
-									"type": "string"
-								},
-								{
-									"key": "showPassword",
-									"value": false,
-									"type": "boolean"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"type": "text",
-								"value": "application/x-www-form-urlencoded"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "https://{{bigip1_mgmt_ip}}/mgmt/shared/appsvcs/info",
-							"protocol": "https",
-							"host": [
-								"{{bigip1_mgmt_ip}}"
-							],
-							"path": [
-								"mgmt",
-								"shared",
-								"appsvcs",
-								"info"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Step 3-B: bigip2 - AS3 - Get extension status",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"auth": {
-							"type": "basic",
-							"basic": [
-								{
-									"key": "password",
-									"value": "{{bigip_admin_password}}",
-									"type": "string"
-								},
-								{
-									"key": "username",
-									"value": "admin",
-									"type": "string"
-								},
-								{
-									"key": "showPassword",
-									"value": false,
-									"type": "boolean"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"type": "text",
-								"value": "application/x-www-form-urlencoded"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "https://{{bigip2_mgmt_ip}}/mgmt/shared/appsvcs/info",
-							"protocol": "https",
-							"host": [
-								"{{bigip2_mgmt_ip}}"
-							],
-							"path": [
-								"mgmt",
-								"shared",
-								"appsvcs",
-								"info"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Step 4-A: bigip1 - CFE - Get extension status",
+					"name": "CFE-1-A [bigip1] Get extension status",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -389,7 +284,7 @@
 					"response": []
 				},
 				{
-					"name": "Step 4-B: bigip2 - CFE - Get extension status",
+					"name": "CFE-1-B [bigip2] Get extension status",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -443,122 +338,7 @@
 					"response": []
 				},
 				{
-					"name": "Step 5-A: bigip1 - TS - Get extension status",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"auth": {
-							"type": "basic",
-							"basic": [
-								{
-									"key": "password",
-									"value": "{{bigip_admin_password}}",
-									"type": "string"
-								},
-								{
-									"key": "username",
-									"value": "admin",
-									"type": "string"
-								},
-								{
-									"key": "showPassword",
-									"value": false,
-									"type": "boolean"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"value": "application/x-www-form-urlencoded",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "https://{{bigip1_mgmt_ip}}/mgmt/shared/telemetry/info",
-							"protocol": "https",
-							"host": [
-								"{{bigip1_mgmt_ip}}"
-							],
-							"path": [
-								"mgmt",
-								"shared",
-								"telemetry",
-								"info"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Step 5-B: bigip2 - TS - Get extension status",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"auth": {
-							"type": "basic",
-							"basic": [
-								{
-									"key": "password",
-									"value": "{{bigip_admin_password}}",
-									"type": "string"
-								},
-								{
-									"key": "username",
-									"value": "admin",
-									"type": "string"
-								},
-								{
-									"key": "showPassword",
-									"value": false,
-									"type": "boolean"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"value": "application/x-www-form-urlencoded",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "https://{{bigip2_mgmt_ip}}/mgmt/shared/telemetry/info",
-							"protocol": "https",
-							"host": [
-								"{{bigip2_mgmt_ip}}"
-							],
-							"path": [
-								"mgmt",
-								"shared",
-								"telemetry",
-								"info"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "Config - Cloud Failover Extension",
-			"item": [
-				{
-					"name": "Step 1-A: bigip1 - CFE - Configure cloud failover",
+					"name": "CFE-2-A [bigip1] Configure cloud failover",
 					"request": {
 						"auth": {
 							"type": "basic",
@@ -609,7 +389,7 @@
 					"response": []
 				},
 				{
-					"name": "Step 1-B: bigip2 - CFE - Configure cloud failover",
+					"name": "CFE-2-B [bigip2] Configure cloud failover",
 					"request": {
 						"auth": {
 							"type": "basic",
@@ -660,7 +440,7 @@
 					"response": []
 				},
 				{
-					"name": "Step 2-A: bigip1 - CFE - Cleanup - Clear cloud failover configuration (prep for next module)",
+					"name": "CFE-3-A [bigip1] Cleanup - Clear cloud failover configuration (prep for next module)",
 					"request": {
 						"auth": {
 							"type": "basic",
@@ -682,7 +462,7 @@
 								}
 							]
 						},
-						"method": "DELETE",
+						"method": "POST",
 						"header": [
 							{
 								"key": "Content-Type",
@@ -692,7 +472,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": ""
+							"raw": "{\r\n    \"class\": \"Cloud_Failover\",\r\n    \"environment\": \"aws\",\r\n    \"externalStorage\": {\r\n        \"scopingTags\": { }\r\n    },\r\n    \"failoverAddresses\": {\r\n        \"scopingTags\": { }\r\n    }\r\n}"
 						},
 						"url": {
 							"raw": "https://{{bigip1_mgmt_ip}}/mgmt/shared/cloud-failover/declare",
@@ -711,7 +491,7 @@
 					"response": []
 				},
 				{
-					"name": "Step 2-B: bigip2 - CFE - Cleanup - Clear cloud failover configuration (prep for next module)",
+					"name": "CFE-3-B [bigip2] Cleanup - Clear cloud failover configuration (prep for next module)",
 					"request": {
 						"auth": {
 							"type": "basic",
@@ -733,7 +513,7 @@
 								}
 							]
 						},
-						"method": "DELETE",
+						"method": "POST",
 						"header": [
 							{
 								"key": "Content-Type",
@@ -743,7 +523,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": ""
+							"raw": "{\r\n    \"class\": \"Cloud_Failover\",\r\n    \"environment\": \"aws\",\r\n    \"externalStorage\": {\r\n        \"scopingTags\": { }\r\n    },\r\n    \"failoverAddresses\": {\r\n        \"scopingTags\": { }\r\n    }\r\n}"
 						},
 						"url": {
 							"raw": "https://{{bigip2_mgmt_ip}}/mgmt/shared/cloud-failover/declare",
@@ -762,7 +542,7 @@
 					"response": []
 				},
 				{
-					"name": "Step 3: bigip1 - API - Cleanup - Remove bigip2 from Device Group",
+					"name": "Step 4: bigip1 - API - Cleanup - Remove bigip2 from Device Group",
 					"request": {
 						"auth": {
 							"type": "basic",
@@ -819,7 +599,117 @@
 			"name": "Config - Telemetry Streaming",
 			"item": [
 				{
-					"name": "Step 3: Telemetry Streaming AWS - BIGIP1",
+					"name": "TS-1-A [bigip1] Get extension status",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{bigip_admin_password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://{{bigip1_mgmt_ip}}/mgmt/shared/telemetry/info",
+							"protocol": "https",
+							"host": [
+								"{{bigip1_mgmt_ip}}"
+							],
+							"path": [
+								"mgmt",
+								"shared",
+								"telemetry",
+								"info"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TS-1-B [bigip2] Get extension status",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{bigip_admin_password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://{{bigip2_mgmt_ip}}/mgmt/shared/telemetry/info",
+							"protocol": "https",
+							"host": [
+								"{{bigip2_mgmt_ip}}"
+							],
+							"path": [
+								"mgmt",
+								"shared",
+								"telemetry",
+								"info"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TS-2-A [bigip1] Configure TS for CloudWatch",
 					"request": {
 						"auth": {
 							"type": "basic",
@@ -871,7 +761,7 @@
 					"response": []
 				},
 				{
-					"name": "Step 4: Telemetry Streaming AWS - BIGIP2",
+					"name": "TS-2-B [bigip2] Configure TS for CloudWatch",
 					"request": {
 						"auth": {
 							"type": "basic",
@@ -1824,7 +1714,117 @@
 					"name": "Config - AS3",
 					"item": [
 						{
-							"name": "Step 1: Create AS3 - Example01/example01 with AutoDiscover pool members",
+							"name": "AS3-1-A [bigip1] Get extension status",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "{{bigip_admin_password}}",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "admin",
+											"type": "string"
+										},
+										{
+											"key": "showPassword",
+											"value": false,
+											"type": "boolean"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/x-www-form-urlencoded"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "https://{{bigip1_mgmt_ip}}/mgmt/shared/appsvcs/info",
+									"protocol": "https",
+									"host": [
+										"{{bigip1_mgmt_ip}}"
+									],
+									"path": [
+										"mgmt",
+										"shared",
+										"appsvcs",
+										"info"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "AS3-1-B [bigip2] Get extension status",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "{{bigip_admin_password}}",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "admin",
+											"type": "string"
+										},
+										{
+											"key": "showPassword",
+											"value": false,
+											"type": "boolean"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/x-www-form-urlencoded"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "https://{{bigip2_mgmt_ip}}/mgmt/shared/appsvcs/info",
+									"protocol": "https",
+									"host": [
+										"{{bigip2_mgmt_ip}}"
+									],
+									"path": [
+										"mgmt",
+										"shared",
+										"appsvcs",
+										"info"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "AS3-2 [bigip1] Create AS3 - Example01/example01 with AutoDiscover pool members",
 							"request": {
 								"auth": {
 									"type": "basic",
@@ -1883,7 +1883,7 @@
 							"response": []
 						},
 						{
-							"name": "Step 2: Create AS3 - Example01/example01 HA Modern Protocols",
+							"name": "AS3-3 [bigip1] Create AS3 - Example01/example01 HA Modern Protocols",
 							"request": {
 								"auth": {
 									"type": "basic",
@@ -1942,7 +1942,7 @@
 							"response": []
 						},
 						{
-							"name": "Step 3: Create AS3 - Example01/example01 HA Modern Protocols",
+							"name": "AS3-4 [bigip1] Create AS3 - Example01/example01 HA Modern Protocols",
 							"request": {
 								"auth": {
 									"type": "basic",
@@ -2001,7 +2001,7 @@
 							"response": []
 						},
 						{
-							"name": "Step 4: Create AS3 - Example01/example01 ECDSA Cert",
+							"name": "AS3-5 [bigip1] Create AS3 - Example01/example01 ECDSA Cert",
 							"request": {
 								"auth": {
 									"type": "basic",
