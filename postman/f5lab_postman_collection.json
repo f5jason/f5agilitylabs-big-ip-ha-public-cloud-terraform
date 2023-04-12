@@ -6,7 +6,7 @@
 	},
 	"item": [
 		{
-			"name": "Check F5 ATC Status",
+			"name": "Module 2 - Declarative Onboarding",
 			"item": [
 				{
 					"name": "DO-1-A [bigip1] Get extension status",
@@ -227,7 +227,7 @@
 			]
 		},
 		{
-			"name": "Config - Cloud Failover Extension",
+			"name": "Module 4 - Cloud Failover Extension",
 			"item": [
 				{
 					"name": "CFE-1-A [bigip1] Get extension status",
@@ -596,7 +596,7 @@
 			]
 		},
 		{
-			"name": "Config - Telemetry Streaming",
+			"name": "Module 6 - Telemetry Streaming",
 			"item": [
 				{
 					"name": "TS-1-A [bigip1] Get extension status",
@@ -838,7 +838,7 @@
 			"name": "Misc",
 			"item": [
 				{
-					"name": "Install F5 ATC Packages",
+					"name": "Install F5 ATC Packages (DO alternative)",
 					"item": [
 						{
 							"name": "Upload and Install to BIG-IP1",
@@ -1711,7 +1711,7 @@
 					]
 				},
 				{
-					"name": "Config - AS3",
+					"name": "Module 3 - AS3 (F5 Extension alternative)",
 					"item": [
 						{
 							"name": "AS3-1-A [bigip1] Get extension status",
