@@ -14,5 +14,5 @@ data "template_file" "as3certs" {
 resource "local_file" "as3certs_rendered" {
   depends_on = [null_resource.ecdsa_certs]
   content    = data.template_file.as3certs.rendered
-  filename   = "../ATC/AS3/lab1.3_as3_ecdsaCerts_autodiscovery"
+  filename   = "../ATC/AS3/lab1.3_as3_ecdsaCerts_autodiscovery.json"
 }
