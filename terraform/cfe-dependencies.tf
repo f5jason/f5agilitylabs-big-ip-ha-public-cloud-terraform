@@ -2,7 +2,8 @@
 
 # S3 Bucket for F5 Cloud Failover Extension
 resource "aws_s3_bucket" "f5_cloud_failover_extension" {
-  bucket = "f5-cloud-failover-ext-${uuid()}"
+  bucket        = "f5-cloud-failover-ext-${uuid()}"
+  force_destroy = true
 
   lifecycle {
     ignore_changes = [
