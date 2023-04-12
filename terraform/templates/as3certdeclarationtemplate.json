@@ -61,8 +61,8 @@
 				"webcert1a": {
 					"class": "Certificate",
 					"remark": "in practice we recommend using a passphrase",
-					"certificate": "{Terraform will fill this in}",
-					"privateKey": "{Terraform will fill this in}"
+					"certificate": "${EXAMPLE01A_ECDSA_CERT}",
+					"privateKey": "${EXAMPLE01A_ECDSA_KEY}"
 				},
 				"clientssl_secure_example01b": {
 					"certificates": [
@@ -76,8 +76,8 @@
 				"webcert1b": {
 					"class": "Certificate",
 					"remark": "in practice we recommend using a passphrase",
-					"certificate": "{Terraform will fill this in}",
-					"privateKey": "{Terraform will fill this in}"
+					"certificate": "${EXAMPLE01B_ECDSA_CERT}",
+					"privateKey": "${EXAMPLE01B_ECDSA_KEY}"
 				},
 				"http2_example01": {
 					"class": "HTTP2_Profile",
