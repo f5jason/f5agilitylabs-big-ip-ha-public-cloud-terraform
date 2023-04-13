@@ -91,7 +91,11 @@
 					"routeAdvertisement": "enable",
 					"spanningEnabled": false,
 					"trafficGroup": "none"
-				}
+				},
+				"http2_example01": {
+					"class": "HTTP2_Profile",
+					"enforceTlsRequirements": false
+				}				
 			}
 		}
 	}
