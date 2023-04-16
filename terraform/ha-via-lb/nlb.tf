@@ -2,7 +2,7 @@
 
 # Create AWS Network Load Balancer
 resource "aws_lb" "nlb" {
-  name               = format("%s_nlb", var.prefix)
+  name               = format("%s-nlb", var.prefix)
   internal           = false
   load_balancer_type = "network"
   subnets            = [aws_subnet.hub_bigip1_external.id, aws_subnet.hub_bigip2_external.id]
