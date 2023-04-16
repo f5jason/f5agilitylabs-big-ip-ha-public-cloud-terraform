@@ -125,6 +125,15 @@ variable "bigip_netcfg" {
 }
 
 
+### AS3 declaration file paths (for module 5)
+variable "as3_configs" {
+  description = "AS3 declaration files to load"
+  type = list(object({
+    as3file = string
+  }))
+}
+
+
 ### F5 Automation Toolchain package download URLs
 
 # Please check and update the latest runtime init URL from https://github.com/F5Networks/f5-bigip-runtime-init/releases/latest

@@ -49,15 +49,35 @@
 						"bigip": "/Common/default.key"
 					}
 				},
-				"clientssl_secure_example01": {
+				"clientssl_secure_example01a": {
 					"certificates": [
 						{
-							"certificate": "certificate_default"
+							"certificate": "webcert1a"
 						}
 					],
-					"ciphers": "none",
 					"renegotiationEnabled": false,
 					"class": "TLS_Server"
+				},
+				"webcert1a": {
+					"class": "Certificate",
+					"remark": "in practice we recommend using a passphrase",
+					"certificate": "{Terraform will fill this in}",
+					"privateKey": "{Terraform will fill this in}"
+				},
+				"clientssl_secure_example01b": {
+					"certificates": [
+						{
+							"certificate": "webcert1b"
+						}
+					],
+					"renegotiationEnabled": false,
+					"class": "TLS_Server"
+				},
+				"webcert1b": {
+					"class": "Certificate",
+					"remark": "in practice we recommend using a passphrase",
+					"certificate": "{Terraform will fill this in}",
+					"privateKey": "{Terraform will fill this in}"
 				},
 				"http2_example01": {
 					"class": "HTTP2_Profile",
@@ -79,14 +99,17 @@
 					"profileTCP": {
 						"bigip": "/Common/tcp"
 					},
-					"serverTLS": "clientssl_secure_example01",
+					"serverTLS": "clientssl_secure_example01a",
 					"virtualAddresses": [
 						{
 							"use": "example01a_service_address"
 						}
 					],
 					"virtualPort": 443,
-					"snat": "auto"
+					"snat": "auto",
+					"profileHTTP2": {
+						"bigip": "/Example01/Shared/http2_example01"
+					}
 				},
 				"example01a_service_address": {
 					"class": "Service_Address",
@@ -113,14 +136,17 @@
 					"profileTCP": {
 						"bigip": "/Common/tcp"
 					},
-					"serverTLS": "clientssl_secure_example01",
+					"serverTLS": "clientssl_secure_example01b",
 					"virtualAddresses": [
 						{
 							"use": "example01b_service_address"
 						}
 					],
 					"virtualPort": 443,
-					"snat": "auto"
+					"snat": "auto",
+					"profileHTTP2": {
+						"bigip": "/Example01/Shared/http2_example01"
+					}
 				},
 				"example01b_service_address": {
 					"class": "Service_Address",
