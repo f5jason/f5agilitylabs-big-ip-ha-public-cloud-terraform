@@ -1,8 +1,9 @@
 {
 	"info": {
-		"_postman_id": "4ac01792-a9f9-4f79-90db-9e3ce58c7b4e",
+		"_postman_id": "96593e7e-d2ef-4189-900e-4e03648c9dd8",
 		"name": "Agility Lab - BIG-IP HA in Public Cloud",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "562029"
 	},
 	"item": [
 		{
@@ -540,58 +541,719 @@
 						}
 					},
 					"response": []
+				}
+			]
+		},
+		{
+			"name": "Module 5 - HA via LB",
+			"item": [
+				{
+					"name": "Prep for Active-Active BIG-IP",
+					"item": [
+						{
+							"name": "Prep-1-A [bigip1] Disable active-standby failover (make active-active)",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "{{bigip_admin_password}}",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "admin",
+											"type": "string"
+										},
+										{
+											"key": "showPassword",
+											"value": false,
+											"type": "boolean"
+										}
+									]
+								},
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"command\":\"run\",\n    \"name\":\"Root\",\n    \"caDevice\":true,\n    \"device\":\"{{bigip1_mgmt_ip}}\",\n    \"deviceName\":\"{{bigip1_hostname}}\",\n    \"username\":\"admin\",\n    \"password\":\"{{bigip_admin_password}}\",\n    \"devicesReference\":{\"items\":[]}\n}"
+								},
+								"url": {
+									"raw": "https://{{bigip1_mgmt_ip}}/mgmt/tm/cm/device-group/failoverGroup",
+									"protocol": "https",
+									"host": [
+										"{{bigip1_mgmt_ip}}"
+									],
+									"path": [
+										"mgmt",
+										"tm",
+										"cm",
+										"device-group",
+										"failoverGroup"
+									]
+								}
+							},
+							"response": []
+						}
+					]
 				},
 				{
-					"name": "Step 4: bigip1 - API - Cleanup - Remove bigip2 from Device Group",
-					"request": {
-						"auth": {
-							"type": "basic",
-							"basic": [
+					"name": "Failover Test",
+					"item": [
+						{
+							"name": "BIG-IP #1",
+							"item": [
 								{
-									"key": "password",
-									"value": "{{bigip_admin_password}}",
-									"type": "string"
+									"name": "NLB-1-A [bigip1] Check For Virtual Server Example01a",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"auth": {
+											"type": "basic",
+											"basic": [
+												{
+													"key": "password",
+													"value": "{{bigip_admin_password}}",
+													"type": "string"
+												},
+												{
+													"key": "username",
+													"value": "admin",
+													"type": "string"
+												},
+												{
+													"key": "showPassword",
+													"value": false,
+													"type": "boolean"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": ""
+										},
+										"url": {
+											"raw": "https://{{bigip2_mgmt_ip}}/mgmt/tm/ltm/virtual/~Example01~Shared~example01a",
+											"protocol": "https",
+											"host": [
+												"{{bigip2_mgmt_ip}}"
+											],
+											"path": [
+												"mgmt",
+												"tm",
+												"ltm",
+												"virtual",
+												"~Example01~Shared~example01a"
+											]
+										}
+									},
+									"response": []
 								},
 								{
-									"key": "username",
-									"value": "admin",
-									"type": "string"
+									"name": "NLB-2-A [bigip1] Disable Virtual Server Example01a",
+									"request": {
+										"auth": {
+											"type": "basic",
+											"basic": [
+												{
+													"key": "password",
+													"value": "{{bigip_admin_password}}",
+													"type": "string"
+												},
+												{
+													"key": "username",
+													"value": "admin",
+													"type": "string"
+												},
+												{
+													"key": "showPassword",
+													"value": false,
+													"type": "boolean"
+												}
+											]
+										},
+										"method": "PATCH",
+										"header": [
+											{
+												"key": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\"disabled\":true}"
+										},
+										"url": {
+											"raw": "https://{{bigip1_mgmt_ip}}/mgmt/tm/ltm/virtual/~Example01~Shared~example01a",
+											"protocol": "https",
+											"host": [
+												"{{bigip1_mgmt_ip}}"
+											],
+											"path": [
+												"mgmt",
+												"tm",
+												"ltm",
+												"virtual",
+												"~Example01~Shared~example01a"
+											]
+										}
+									},
+									"response": []
 								},
 								{
-									"key": "showPassword",
-									"value": false,
-									"type": "boolean"
+									"name": "NLB-3-A [bigip1] Check For Virtual Server Example01b",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"auth": {
+											"type": "basic",
+											"basic": [
+												{
+													"key": "password",
+													"value": "{{bigip_admin_password}}",
+													"type": "string"
+												},
+												{
+													"key": "username",
+													"value": "admin",
+													"type": "string"
+												},
+												{
+													"key": "showPassword",
+													"value": false,
+													"type": "boolean"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": ""
+										},
+										"url": {
+											"raw": "https://{{bigip1_mgmt_ip}}/mgmt/tm/ltm/virtual/~Example01~Shared~example01b",
+											"protocol": "https",
+											"host": [
+												"{{bigip1_mgmt_ip}}"
+											],
+											"path": [
+												"mgmt",
+												"tm",
+												"ltm",
+												"virtual",
+												"~Example01~Shared~example01b"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "NLB-4-A [bigip1] Disable Virtual Server Example01b",
+									"request": {
+										"auth": {
+											"type": "basic",
+											"basic": [
+												{
+													"key": "password",
+													"value": "{{bigip_admin_password}}",
+													"type": "string"
+												},
+												{
+													"key": "username",
+													"value": "admin",
+													"type": "string"
+												},
+												{
+													"key": "showPassword",
+													"value": false,
+													"type": "boolean"
+												}
+											]
+										},
+										"method": "PATCH",
+										"header": [
+											{
+												"key": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\"disabled\":true}"
+										},
+										"url": {
+											"raw": "https://{{bigip1_mgmt_ip}}/mgmt/tm/ltm/virtual/~Example01~Shared~example01b",
+											"protocol": "https",
+											"host": [
+												"{{bigip1_mgmt_ip}}"
+											],
+											"path": [
+												"mgmt",
+												"tm",
+												"ltm",
+												"virtual",
+												"~Example01~Shared~example01b"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "NLB-5-A [bigip1] Enable Virtual Server Example01a",
+									"request": {
+										"auth": {
+											"type": "basic",
+											"basic": [
+												{
+													"key": "password",
+													"value": "{{bigip_admin_password}}",
+													"type": "string"
+												},
+												{
+													"key": "username",
+													"value": "admin",
+													"type": "string"
+												},
+												{
+													"key": "showPassword",
+													"value": false,
+													"type": "boolean"
+												}
+											]
+										},
+										"method": "PATCH",
+										"header": [
+											{
+												"key": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\"enabled\":true}"
+										},
+										"url": {
+											"raw": "https://{{bigip1_mgmt_ip}}/mgmt/tm/ltm/virtual/~Example01~Shared~example01a",
+											"protocol": "https",
+											"host": [
+												"{{bigip1_mgmt_ip}}"
+											],
+											"path": [
+												"mgmt",
+												"tm",
+												"ltm",
+												"virtual",
+												"~Example01~Shared~example01a"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "NLB-6-A [bigip1] Enable Virtual Server Example01b",
+									"request": {
+										"auth": {
+											"type": "basic",
+											"basic": [
+												{
+													"key": "password",
+													"value": "{{bigip_admin_password}}",
+													"type": "string"
+												},
+												{
+													"key": "username",
+													"value": "admin",
+													"type": "string"
+												},
+												{
+													"key": "showPassword",
+													"value": false,
+													"type": "boolean"
+												}
+											]
+										},
+										"method": "PATCH",
+										"header": [
+											{
+												"key": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\"enabled\":true}"
+										},
+										"url": {
+											"raw": "https://{{bigip1_mgmt_ip}}/mgmt/tm/ltm/virtual/~Example01~Shared~example01b",
+											"protocol": "https",
+											"host": [
+												"{{bigip1_mgmt_ip}}"
+											],
+											"path": [
+												"mgmt",
+												"tm",
+												"ltm",
+												"virtual",
+												"~Example01~Shared~example01b"
+											]
+										}
+									},
+									"response": []
 								}
 							]
 						},
-						"method": "PATCH",
-						"header": [
-							{
-								"key": "Content-Type",
-								"type": "text",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"command\":\"run\",\n    \"name\":\"Root\",\n    \"caDevice\":true,\n    \"device\":\"{{bigip2_mgmt_ip}}\",\n    \"deviceName\":\"{{bigip2_hostname}}\",\n    \"username\":\"admin\",\n    \"password\":\"{{bigip_admin_password}}\",\n    \"devicesReference\": {\"items\": []}\n}"
-						},
-						"url": {
-							"raw": "https://{{bigip1_mgmt_ip}}/mgmt/tm/cm/device-group/failoverGroup",
-							"protocol": "https",
-							"host": [
-								"{{bigip1_mgmt_ip}}"
-							],
-							"path": [
-								"mgmt",
-								"tm",
-								"cm",
-								"device-group",
-								"failoverGroup"
+						{
+							"name": "BIG-IP #2",
+							"item": [
+								{
+									"name": "NLB-1-B [bigip2] Check For Virtual Server Example01a",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"auth": {
+											"type": "basic",
+											"basic": [
+												{
+													"key": "password",
+													"value": "{{bigip_admin_password}}",
+													"type": "string"
+												},
+												{
+													"key": "username",
+													"value": "admin",
+													"type": "string"
+												},
+												{
+													"key": "showPassword",
+													"value": false,
+													"type": "boolean"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": ""
+										},
+										"url": {
+											"raw": "https://{{bigip2_mgmt_ip}}/mgmt/tm/ltm/virtual/~Example01~Shared~example01a",
+											"protocol": "https",
+											"host": [
+												"{{bigip2_mgmt_ip}}"
+											],
+											"path": [
+												"mgmt",
+												"tm",
+												"ltm",
+												"virtual",
+												"~Example01~Shared~example01a"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "NLB-2-B [bigip2] Disable Virtual Server Example01a",
+									"request": {
+										"auth": {
+											"type": "basic",
+											"basic": [
+												{
+													"key": "password",
+													"value": "{{bigip_admin_password}}",
+													"type": "string"
+												},
+												{
+													"key": "username",
+													"value": "admin",
+													"type": "string"
+												},
+												{
+													"key": "showPassword",
+													"value": false,
+													"type": "boolean"
+												}
+											]
+										},
+										"method": "PATCH",
+										"header": [
+											{
+												"key": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\"disabled\":true}"
+										},
+										"url": {
+											"raw": "https://{{bigip2_mgmt_ip}}/mgmt/tm/ltm/virtual/~Example01~Shared~example01a",
+											"protocol": "https",
+											"host": [
+												"{{bigip2_mgmt_ip}}"
+											],
+											"path": [
+												"mgmt",
+												"tm",
+												"ltm",
+												"virtual",
+												"~Example01~Shared~example01a"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "NLB-3-B [bigip2] Check For Virtual Server Example01b",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"auth": {
+											"type": "basic",
+											"basic": [
+												{
+													"key": "password",
+													"value": "{{bigip_admin_password}}",
+													"type": "string"
+												},
+												{
+													"key": "username",
+													"value": "admin",
+													"type": "string"
+												},
+												{
+													"key": "showPassword",
+													"value": false,
+													"type": "boolean"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": ""
+										},
+										"url": {
+											"raw": "https://{{bigip2_mgmt_ip}}/mgmt/tm/ltm/virtual/~Example01~Shared~example01b",
+											"protocol": "https",
+											"host": [
+												"{{bigip2_mgmt_ip}}"
+											],
+											"path": [
+												"mgmt",
+												"tm",
+												"ltm",
+												"virtual",
+												"~Example01~Shared~example01b"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "NLB-4-B [bigip2] Disable Virtual Server Example01b",
+									"request": {
+										"auth": {
+											"type": "basic",
+											"basic": [
+												{
+													"key": "password",
+													"value": "{{bigip_admin_password}}",
+													"type": "string"
+												},
+												{
+													"key": "username",
+													"value": "admin",
+													"type": "string"
+												},
+												{
+													"key": "showPassword",
+													"value": false,
+													"type": "boolean"
+												}
+											]
+										},
+										"method": "PATCH",
+										"header": [
+											{
+												"key": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\"disabled\":true}"
+										},
+										"url": {
+											"raw": "https://{{bigip2_mgmt_ip}}/mgmt/tm/ltm/virtual/~Example01~Shared~example01b",
+											"protocol": "https",
+											"host": [
+												"{{bigip2_mgmt_ip}}"
+											],
+											"path": [
+												"mgmt",
+												"tm",
+												"ltm",
+												"virtual",
+												"~Example01~Shared~example01b"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "NLB-5-B [bigip2] Enable Virtual Server Example01a",
+									"request": {
+										"auth": {
+											"type": "basic",
+											"basic": [
+												{
+													"key": "password",
+													"value": "{{bigip_admin_password}}",
+													"type": "string"
+												},
+												{
+													"key": "username",
+													"value": "admin",
+													"type": "string"
+												},
+												{
+													"key": "showPassword",
+													"value": false,
+													"type": "boolean"
+												}
+											]
+										},
+										"method": "PATCH",
+										"header": [
+											{
+												"key": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\"enabled\":true}"
+										},
+										"url": {
+											"raw": "https://{{bigip2_mgmt_ip}}/mgmt/tm/ltm/virtual/~Example01~Shared~example01a",
+											"protocol": "https",
+											"host": [
+												"{{bigip2_mgmt_ip}}"
+											],
+											"path": [
+												"mgmt",
+												"tm",
+												"ltm",
+												"virtual",
+												"~Example01~Shared~example01a"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "NLB-6-B [bigip2] Enable Virtual Server Example01b",
+									"request": {
+										"auth": {
+											"type": "basic",
+											"basic": [
+												{
+													"key": "password",
+													"value": "{{bigip_admin_password}}",
+													"type": "string"
+												},
+												{
+													"key": "username",
+													"value": "admin",
+													"type": "string"
+												},
+												{
+													"key": "showPassword",
+													"value": false,
+													"type": "boolean"
+												}
+											]
+										},
+										"method": "PATCH",
+										"header": [
+											{
+												"key": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\"enabled\":true}"
+										},
+										"url": {
+											"raw": "https://{{bigip2_mgmt_ip}}/mgmt/tm/ltm/virtual/~Example01~Shared~example01b",
+											"protocol": "https",
+											"host": [
+												"{{bigip2_mgmt_ip}}"
+											],
+											"path": [
+												"mgmt",
+												"tm",
+												"ltm",
+												"virtual",
+												"~Example01~Shared~example01b"
+											]
+										}
+									},
+									"response": []
+								}
 							]
 						}
-					},
-					"response": []
+					]
 				}
 			]
 		},
