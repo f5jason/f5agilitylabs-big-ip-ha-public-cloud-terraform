@@ -4,7 +4,7 @@ terraform {
     template = "~> 2.1"
     local    = "~> 1.2"
     bigip = {
-      source = "terraform-providers/bigip"
+      source = "F5Networks/bigip"
     }
   }
 }
