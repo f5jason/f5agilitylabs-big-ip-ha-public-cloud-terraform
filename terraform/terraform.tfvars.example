@@ -80,5 +80,5 @@ appsvr_netcfg = {
 as3_configs = [
   { as3file = "../ATC/AS3/Step1_as3_AWS_Autodiscovery.json" },
   { as3file = "../ATC/AS3/Step2_as3_HTTPS_ModernProtocols_Autodiscovery.json" },
-  { as3file = "../ATC/AS3/Step3_as3_ecdsaCerts_autodiscovery.json" }
+  { as3file = "../ATC/AS3/Step3_as3_ecdsaCerts_Autodiscovery.json" }
 ]
