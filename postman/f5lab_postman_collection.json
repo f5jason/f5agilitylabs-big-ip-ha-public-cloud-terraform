@@ -473,7 +473,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"class\": \"Cloud_Failover\",\r\n    \"environment\": \"aws\",\r\n    \"externalStorage\": {\r\n        \"scopingTags\": { }\r\n    },\r\n    \"failoverAddresses\": {\r\n        \"scopingTags\": { }\r\n    }\r\n}"
+							"raw": "{\r\n    \"class\": \"Cloud_Failover\",\r\n    \"environment\": \"aws\"\r\n}"
 						},
 						"url": {
 							"raw": "https://{{bigip1_mgmt_ip}}/mgmt/shared/cloud-failover/declare",
@@ -524,7 +524,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"class\": \"Cloud_Failover\",\r\n    \"environment\": \"aws\",\r\n    \"externalStorage\": {\r\n        \"scopingTags\": { }\r\n    },\r\n    \"failoverAddresses\": {\r\n        \"scopingTags\": { }\r\n    }\r\n}"
+							"raw": "{\r\n    \"class\": \"Cloud_Failover\",\r\n    \"environment\": \"aws\"\r\n}"
 						},
 						"url": {
 							"raw": "https://{{bigip2_mgmt_ip}}/mgmt/shared/cloud-failover/declare",
