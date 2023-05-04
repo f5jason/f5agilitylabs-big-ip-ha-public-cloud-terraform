@@ -9,15 +9,16 @@ provider "bigip" {
 
 # AS3 declaration files
 resource "bigip_as3" "as3_config1" {
-  as3_json = file(var.as3_configs[0].as3file)
+  as3_json   = file(var.as3_configs[0].as3file)
+  depends_on = [aws_instance.bigip1]
 }
 
 resource "bigip_as3" "as3_config2" {
   as3_json   = file(var.as3_configs[1].as3file)
-  depends_on = [bigip_as3.as3_config1]
+  depends_on = [aws_instance.bigip1, bigip_as3.as3_config1]
 }
 
 resource "bigip_as3" "as3_config3" {
   as3_json   = file(var.as3_configs[2].as3file)
-  depends_on = [bigip_as3.as3_config1, bigip_as3.as3_config2]
+  depends_on = [aws_instance.bigip1, bigip_as3.as3_config1, bigip_as3.as3_config2]
 }
