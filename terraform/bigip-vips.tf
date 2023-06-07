@@ -1,7 +1,7 @@
 ### Elastic (Public) IP Address Assignments for Virtual Servers
 
 resource "aws_eip" "vip1" {
-  vpc                       = true
+  domain                    = "vpc"
   network_interface         = aws_network_interface.bigip1_external.id
   associate_with_private_ip = var.bigip_netcfg["bigip1"]["app_vips"][0]
 
