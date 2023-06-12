@@ -1,7 +1,7 @@
 # NAT Gateway for outbound Internet access from private IPs
 
 resource "aws_eip" "hub_ngw" {
-  vpc = true
+  domain = "vpc"
 }
 
 # Note: NAT Gateway deployed into a single AZ to simplify this lab. Recommended practice is to

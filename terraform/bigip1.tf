@@ -132,7 +132,7 @@ resource "aws_network_interface" "bigip1_internal" {
 
 # Public IP Address for management IP (jumphost inbound access)
 resource "aws_eip" "bigip1_mgmt" {
-  vpc               = true
+  domain            = "vpc"
   network_interface = aws_network_interface.bigip1_mgmt.id
 
   tags = {
