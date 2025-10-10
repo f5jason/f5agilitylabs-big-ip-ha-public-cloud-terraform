@@ -11,9 +11,16 @@ data "aws_ami" "bigip" {
 
 data "aws_ami" "linux" {
   most_recent = true
+  owners      = ["amazon"] # The owner for official Amazon Linux AMIs
+
   filter {
     name   = "name"
-    values = [var.linux_ami_search_name]
+    values = ["amzn2-ami-hvm-*-x86_64-gp2"] # Pattern for Amazon Linux 2 AMI names
+  }
+
+  filter {
+    name   = "virtualization-type"
+    values = ["hvm"]
   }
 }
 
